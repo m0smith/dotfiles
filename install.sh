@@ -1,5 +1,6 @@
-
-
+#
+# From https://github.com/stuartsierra/dotfiles
+# 
 
 set -e
 
