@@ -1,4 +1,6 @@
 
+
+
 set -e
 
 cd `dirname $0`
@@ -8,3 +10,4 @@ source $DOTFILES/install_functions.sh
 
 link_with_backup .emacs
 link_with_backup .emacs-custom.el
+link_with_backup .emacs.d
