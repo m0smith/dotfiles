@@ -5,9 +5,9 @@
 function backup {
     local file="$1"
     if [[ -L "$file" ]]; then
-rm "$file"
+	rm "$file"
     elif [[ -e "$file" ]]; then
-mv "$file" "$file.bak"
+	mv "$file" "$file.bak"
     fi
 }
 
