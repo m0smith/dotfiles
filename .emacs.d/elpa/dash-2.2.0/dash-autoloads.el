@@ -3,8 +3,9 @@
 ;;; Code:
 
 
-;;;### (autoloads nil nil ("dash-pkg.el" "dash.el") (21080 50813
-;;;;;;  431042))
+;;;### (autoloads nil nil ("../../../../../../../../home/xubuntu/.emacs.d/elpa/dash-2.2.0/dash-pkg.el"
+;;;;;;  "../../../../../../../../home/xubuntu/.emacs.d/elpa/dash-2.2.0/dash.el")
+;;;;;;  (21082 5772 277217))
 
 ;;;***
 

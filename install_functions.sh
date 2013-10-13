@@ -18,3 +18,8 @@ function link_with_backup {
     backup "$target"
     ln -s "$source" "$target"
 }
+
+function install_elpa {
+    rm -rf "$DOTFILES/.emacs.d/elpa"
+    emacs --script "$DOTFILES/install_elpa.el"
+}

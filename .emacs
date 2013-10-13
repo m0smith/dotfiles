@@ -31,9 +31,18 @@
       "http://marmalade-repo.org/packages/"))
 
 (package-initialize)
+
+;;;
+;;; Move Text
+;;;
+
+(require 'move-text)
+(move-text-default-bindings)
+
 ;;
 ;; Clojure
 ;;
+
 (require 'clojure-mode)
 (require 'nrepl)
 

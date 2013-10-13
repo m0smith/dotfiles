@@ -3,8 +3,9 @@
 ;;; Code:
 
 
-;;;### (autoloads nil nil ("cl-lib-pkg.el" "cl-lib.el") (21080 50814
-;;;;;;  388468))
+;;;### (autoloads nil nil ("../../../../../../../../home/xubuntu/.emacs.d/elpa/cl-lib-0.3/cl-lib-pkg.el"
+;;;;;;  "../../../../../../../../home/xubuntu/.emacs.d/elpa/cl-lib-0.3/cl-lib.el")
+;;;;;;  (21082 5774 724963))
 
 ;;;***
 

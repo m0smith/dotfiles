@@ -4,9 +4,9 @@
 
 
 ;;;### (autoloads (pkg-info-package-version pkg-info-defining-library-version
-;;;;;;  pkg-info-library-version) "pkg-info" "pkg-info.el" (21080
-;;;;;;  50811))
-;;; Generated autoloads from pkg-info.el
+;;;;;;  pkg-info-library-version) "pkg-info" "../../../../../../../../home/xubuntu/.emacs.d/elpa/pkg-info-0.1/pkg-info.el"
+;;;;;;  "7e96ea08dfc837042ae89d2828d8cbce")
+;;; Generated autoloads from ../../../../../../../../home/xubuntu/.emacs.d/elpa/pkg-info-0.1/pkg-info.el
 
 (autoload 'pkg-info-library-version "pkg-info" "\
 Get the version in the header of FEATURE-OR-FILE.
@@ -50,7 +50,9 @@ Return the version as list, or nil if PACKAGE is not installed.
 
 ;;;***
 
-;;;### (autoloads nil nil ("pkg-info-pkg.el") (21080 50811 253720))
+;;;### (autoloads nil nil ("../../../../../../../../home/xubuntu/.emacs.d/elpa/pkg-info-0.1/pkg-info-pkg.el"
+;;;;;;  "../../../../../../../../home/xubuntu/.emacs.d/elpa/pkg-info-0.1/pkg-info.el")
+;;;;;;  (21082 5773 613061))
 
 ;;;***
 

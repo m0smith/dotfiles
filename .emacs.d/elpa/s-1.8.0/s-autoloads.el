@@ -3,7 +3,9 @@
 ;;; Code:
 
 
-;;;### (autoloads nil nil ("s-pkg.el" "s.el") (21080 50810 316950))
+;;;### (autoloads nil nil ("../../../../../../../../home/xubuntu/.emacs.d/elpa/s-1.8.0/s-pkg.el"
+;;;;;;  "../../../../../../../../home/xubuntu/.emacs.d/elpa/s-1.8.0/s.el")
+;;;;;;  (21082 5770 708998))
 
 ;;;***
 
