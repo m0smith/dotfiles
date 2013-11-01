@@ -9,12 +9,19 @@ export DOTFILES=`pwd`
 
 . $DOTFILES/install_functions.sh
 
+os=`uname -o`
+if [[ "$os" = "Cygwin" ]]; then 
+    . $DOTFILES/install_win.sh
+fi
+
 link_with_backup .emacs.d
-install_elpa
 link_with_backup .emacs
 link_with_backup .emacs-custom.el
-
-
 link_with_backup .gitignore
 link_with_backup .gitconfig
+
+install_elpa
+
+
+
 
