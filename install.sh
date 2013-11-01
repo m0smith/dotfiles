@@ -26,9 +26,11 @@ fi
 
 install_elpa
 
-cd ~/bin
-wget https://raw.github.com/technomancy/leiningen/stable/bin/lein
-chmod +x lein
+if [[ ! -f ~/bin/lein ]]; then
+    cd ~/bin
+    wget https://raw.github.com/technomancy/leiningen/stable/bin/lein
+    chmod +x lein
+fi
 
 
 
