@@ -14,13 +14,21 @@ if [[ "$os" = "Cygwin" ]]; then
     . $DOTFILES/install_win.sh
 fi
 
+link_with_backup .bash_profile
 link_with_backup .emacs.d
 link_with_backup .emacs
 link_with_backup .emacs-custom.el
 link_with_backup .gitignore
 link_with_backup .gitconfig
+if [[ ! -d ~/bin ]]; then
+    mkdir ~/bin
+fi
 
 install_elpa
+
+cd ~/bin
+wget https://raw.github.com/technomancy/leiningen/stable/bin/lein
+chmod +x lein
 
 
 
