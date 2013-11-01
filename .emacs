@@ -1,6 +1,11 @@
+(if (eq system-type 'cygwin)
+    (load-file "~/.emacs.d/cygwin/init.el"))
+
 ;;
 ;;  Customization setup
 ;;
+
+
 
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file)
