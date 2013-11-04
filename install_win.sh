@@ -6,7 +6,7 @@
 
 cat <<EOF
 Before running this, be sure and install the latest cygwin:
-      emacs, git, wget and curl.
+      emacs, ctags, git, wget curl, openssh, zip, unzip, subversion.
 
 Also set HOME in the computer propeties to %HOMEDRIVE%%HOMEPATH%
 
