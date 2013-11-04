@@ -3,9 +3,9 @@
 ;;; Code:
 
 
-;;;### (autoloads (clojure-mode) "clojure-mode" "../../../../../../../../home/xubuntu/.emacs.d/elpa/clojure-mode-2.1.0/clojure-mode.el"
+;;;### (autoloads (clojure-mode) "clojure-mode" "../../../../../.emacs.d/elpa/clojure-mode-2.1.0/clojure-mode.el"
 ;;;;;;  "a4eddf18007f95885dbc88f769a38ad3")
-;;; Generated autoloads from ../../../../../../../../home/xubuntu/.emacs.d/elpa/clojure-mode-2.1.0/clojure-mode.el
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/clojure-mode-2.1.0/clojure-mode.el
 
 (autoload 'clojure-mode "clojure-mode" "\
 Major mode for editing Clojure code - similar to Lisp mode.
@@ -33,9 +33,9 @@ if that value is non-nil.
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../../../../../home/xubuntu/.emacs.d/elpa/clojure-mode-2.1.0/clojure-mode-pkg.el"
-;;;;;;  "../../../../../../../../home/xubuntu/.emacs.d/elpa/clojure-mode-2.1.0/clojure-mode.el")
-;;;;;;  (21082 5777 569080))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/clojure-mode-2.1.0/clojure-mode-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/clojure-mode-2.1.0/clojure-mode.el")
+;;;;;;  (21111 53115 102463 700000))
 
 ;;;***
 
