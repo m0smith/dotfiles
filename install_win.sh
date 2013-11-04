@@ -1,4 +1,3 @@
-
 ##
 ## Only run in Cygwin
 ##
@@ -6,7 +5,7 @@
 
 cat <<EOF
 Before running this, be sure and install the latest cygwin:
-      emacs, ctags, git, wget curl, openssh, zip, unzip, subversion.
+      emacs, emacs-el, ctags, git, wget curl, openssh, zip, unzip, subversion.
 
 Also set HOME in the computer propeties to %HOMEDRIVE%%HOMEPATH%
 
