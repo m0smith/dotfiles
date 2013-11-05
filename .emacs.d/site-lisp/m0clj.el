@@ -20,7 +20,7 @@
 (defun m0clj-class-find (s)
   (interactive "sCamel-case:")
   (message (plist-get 
-   (nrepl-send-string-sync (format "(map (comp m0clj-path-to-full-class first) (m0clj-classpath.tools/m0clj-class-search \"%s\"))" s))
+   (nrepl-send-string-sync (format "(map (comp m0clj-classpath.tools/m0clj-path-to-full-class first) (m0clj-classpath.tools/m0clj-class-search \"%s\"))" s))
    :value)))
 
 
