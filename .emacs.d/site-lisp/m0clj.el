@@ -7,6 +7,7 @@
 ;;(nrepl-send-string-sync "(.getURLs (.getClassLoader (.getClass clojure-version)))")
 
 ;;;Search a ZIP file: From http://stackoverflow.com/a/5428265/850252
+;; Maybe use a ZipInputStream
 
 (defun m0clj-resource-search ()
   (interactive)
