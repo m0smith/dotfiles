@@ -24,6 +24,10 @@ if [[ ! -d ~/bin ]]; then
     mkdir ~/bin
 fi
 
+if [[ ! -d ~/projects ]]; then
+    mkdir ~/projects
+fi
+
 install_elpa
 
 if [[ ! -f ~/bin/lein ]]; then
