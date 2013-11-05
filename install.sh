@@ -20,8 +20,13 @@ link_with_backup .emacs
 link_with_backup .emacs-custom.el
 link_with_backup .gitignore
 link_with_backup .gitconfig
+
 if [[ ! -d ~/bin ]]; then
     mkdir ~/bin
+fi
+
+if [[ ! -d ~/projects ]]; then
+    mkdir ~/projects
 fi
 
 install_elpa
@@ -33,5 +38,9 @@ if [[ ! -f ~/bin/lein ]]; then
 fi
 
 
+if [[ ! -f ~/projects/cljdb ]]; then
+    cd ~/projects
+    git clone https://github.com/m0smith/cljdb.git
+fi
 
 
