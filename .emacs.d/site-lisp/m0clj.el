@@ -6,22 +6,34 @@
 ;;(nrepl-send-string-sync "(.getContextClassLoader (Thread/currentThread))")
 ;;(nrepl-send-string-sync "(.getURLs (.getClassLoader (.getClass clojure-version)))")
 
-;;;Search a ZIP file: From http://stackoverflow.com/a/5428265/850252
-;; Maybe use a ZipInputStream
-
-(defun m0clj-resource-search ()
+(defun m0clj-resource-init ()
   (interactive)
-  (nrepl-send-string-sync "(defn m0clj-filenames-in-zip [filename]  (let [z (java.util.zip.ZipFile. filename)] (map #(.getName %) (enumeration-seq (.entries z)))))")
-  (nrepl-send-string-sync "(defn m0clj-classpath-urls [] (.getURLs (.getClassLoader (.getClass clojure-version))))")
-)
-;;#'user/filenames-in-zip
-;;user> (def z "/media/xubuntu/D8D3-1C07/.m2/repository/clojurewerkz/archimedes/1.0.0-alpha5/archimedes-1.0.0-alpha5.jar")
-;;#'user/z
-;;user> (filenames-in-zip z)
+  (nrepl-send-string-sync "(use 'm0clj-classpath.tools)")
+  (nrepl-send-string-sync "(m0clj-classpath.tools/m0clj-init)")
+  )
 
+(defun m0clj-resource-find (s)
+  (interactive "sCamel-case:")
+  (message (plist-get 
+	    (nrepl-send-string-sync (format "(map first (m0clj-classpath.tools/m0clj-resource-search \"%s\"))" s))
+	    :value)))
 
+(defun m0clj-class-find (s)
+  (interactive "sCamel-case:")
+  (message (plist-get 
+	    (nrepl-send-string-sync (format "(map (comp m0clj-classpath.tools/m0clj-path-to-full-class first) (m0clj-classpath.tools/m0clj-class-search \"%s\"))" s))
+	    :value)))
 
+(defun m0clj-cider-hook ()
+  (m0clj-resource-init)
+  (define-key cider-repl-mode-map (kbd "C-S-t") 'm0clj-class-find)
+  (define-key cider-repl-mode-map (kbd "C-S-r") 'm0clj-resource-find)
+  (eval-after-load 'clojure-mode
+    '(progn
+       (define-key clojure-mode-map (kbd "C-S-t") 'm0clj-class-find)
+       (define-key clojure-mode-map (kbd "C-S-r") 'm0clj-resource-find))))
 
+(add-hook 'nrepl-connected-hook 'm0clj-cider-hook)
 
 ;; Recursively generate tags for all *.clj files, 
 ;; creating tags for def* and namespaces
