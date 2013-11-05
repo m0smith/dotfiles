@@ -33,11 +33,12 @@ if [[ "$os" = "Cygwin" ]]; then
 
     ## Setup home as per: http://stackoverflow.com/questions/225764/safely-change-home-directory-in-cygwin/10321615#10321615
     cd /
-    if [[ ! -d "oldhome" ]]; then
+    if [[ ! -h "home" ]]; then
 	if [[ -e "home" ]]; then
 	    mv home oldhome
-	    ln -s `cygpath -H` home
 	fi
+        ln -s `cygpath -H` home
+
     fi
 
 else
