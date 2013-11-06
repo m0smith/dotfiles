@@ -57,7 +57,7 @@
   :type 'file
   :group 'm0clj)
 
-(defun m0clj-tags-cygwin (dir-name)
+(defun m0clj-etags-cygwin (dir-name)
  "Create tags file."
  (interactive "Directory: ")
  (shell-command
