@@ -7,3 +7,6 @@
 .org-id-locations
 *.tar.gz
 *.zip
+repl-history
+repl-port
+self-installs

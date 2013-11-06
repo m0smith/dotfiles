@@ -9,12 +9,39 @@ export DOTFILES=`pwd`
 
 . $DOTFILES/install_functions.sh
 
+os=`uname -o`
+if [[ "$os" = "Cygwin" ]]; then 
+    . $DOTFILES/install_win.sh
+fi
+
+link_with_backup .bash_profile
 link_with_backup .emacs.d
-install_elpa
 link_with_backup .emacs
 link_with_backup .emacs-custom.el
-
-
 link_with_backup .gitignore
 link_with_backup .gitconfig
+link_with_backup .lein
+
+if [[ ! -d ~/bin ]]; then
+    mkdir ~/bin
+fi
+
+if [[ ! -d ~/projects ]]; then
+    mkdir ~/projects
+fi
+
+install_elpa
+
+if [[ ! -f ~/bin/lein ]]; then
+    cd ~/bin
+    wget https://raw.github.com/technomancy/leiningen/stable/bin/lein
+    chmod +x lein
+fi
+
+
+if [[ ! -f ~/projects/cljdb ]]; then
+    cd ~/projects
+    git clone https://github.com/m0smith/cljdb.git
+fi
+
 
