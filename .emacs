@@ -57,7 +57,7 @@
 (load "m0clj")
 
 
-(load-file "/home/xubuntu/projects/cljdb/cljdb.el")
+;;(load-file "/home/xubuntu/projects/cljdb/cljdb.el")
 ;;(require 'cljdb)
 
 ;(load-file "/home/xubuntu/projects/nrepl-inspect/nrepl-inspect.el")
