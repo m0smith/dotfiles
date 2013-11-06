@@ -31,7 +31,8 @@
 
 (defun m0clj-cider-hook ()
   (m0clj-resource-init)
-  (define-key cider-repl-mode-map (kbd "C-S-t") 'm0clj-class-find)
+  (require 'm0clj-classpath)
+  (define-key cider-repl-mode-map (kbd "C-S-t") 'm0clj-classpath-mode)
   (define-key cider-repl-mode-map (kbd "C-S-r") 'm0clj-resource-find)
   (define-key cider-mode-map (kbd "C-M-.") 'nrepl-jump)
   (define-key cider-repl-mode-map (kbd "C-M-.") 'nrepl-jump)
