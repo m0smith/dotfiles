@@ -26,10 +26,8 @@
 
 (require 'package)
 
-(add-to-list 'package-archives 
-    '("marmalade" .
-
-      "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
 
@@ -46,6 +44,9 @@
 
 (require 'clojure-mode)
 (require 'cider)
+
+(load-file "/home/xubuntu/projects/cljdb/cljdb.el")
+;;(require 'cljdb)
 
 ;(load-file "/home/xubuntu/projects/nrepl-inspect/nrepl-inspect.el")
 ;(define-key nrepl-repl-mode-map (kbd "C-c C-i") 'nrepl-inspect)
