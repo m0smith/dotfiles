@@ -60,7 +60,7 @@
 (defcustom path-to-ctags "/usr/bin/ctags"
   "File to use when running etags in cygwin"
   :type 'file
-  :group 'm0clj)
+  :group 'execute)
 
 (defun m0clj-etags-cygwin (dir-name)
  "Create tags file."
