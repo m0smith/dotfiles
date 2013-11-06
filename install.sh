@@ -39,7 +39,7 @@ if [[ ! -f ~/bin/lein ]]; then
 fi
 
 
-if [[ ! -f ~/projects/cljdb ]]; then
+if [[ ! -d ~/projects/cljdb ]]; then
     cd ~/projects
     git clone https://github.com/m0smith/cljdb.git
 fi
