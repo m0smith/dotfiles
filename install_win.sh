@@ -41,6 +41,24 @@ if [[ "$os" = "Cygwin" ]]; then
 
     fi
 
+    if [[ ! -h "/usr/local/bin64" ]]; then
+	if [[ -e "/usr/local/bin64" ]]; then
+	    mv /usr/local/bin64 /usr/local/bin64old
+	fi
+	d=`cygpath -u "c:\Program Files"`
+        ln -s "$d" /usr/local/bin64
+
+    fi
+
+    if [[ ! -h "/usr/local/bin86" ]]; then
+	if [[ -e "/usr/local/bin86" ]]; then
+	    mv /usr/local/bin86 /usr/local/bin64old
+	fi
+	d=`cygpath -u "c:\Program Files (x86)"`
+        ln -s "$d"  /usr/local/bin86
+
+    fi
+
 else
     echo "Only works in Cygwin not $os"
 fi
