@@ -13,16 +13,21 @@
   )
 
 (defun m0clj-resource-find (s)
-  (interactive "sCamel-case:")
+  (interactive "sCamel-case: ")
   (message (plist-get 
 	    (nrepl-send-string-sync (format "(map first (m0clj-classpath.tools/m0clj-resource-search \"%s\"))" s))
 	    :value)))
 
 (defun m0clj-class-find (s)
-  (interactive "sCamel-case:")
-  (message (plist-get 
-	    (nrepl-send-string-sync (format "(map (comp m0clj-classpath.tools/m0clj-path-to-full-class first) (m0clj-classpath.tools/m0clj-class-search \"%s\"))" s))
-	    :value)))
+  (interactive "sCamel-case: ")
+  (message (m0clj-class-find* s)))
+
+(defun m0clj-class-find* (s)
+  (car (read-from-string
+   (plist-get 
+    (nrepl-send-string-sync 
+     (format "(map (fn [f] (list (first f) [(m0clj-classpath.tools/m0clj-path-to-full-class( first f ))])) (m0clj-classpath.tools/m0clj-class-search \"%s\"))" s))
+    :value))))
 
 (defun m0clj-cider-hook ()
   (m0clj-resource-init)
