@@ -35,10 +35,8 @@
 
 (require 'package)
 
-(add-to-list 'package-archives 
-    '("marmalade" .
-
-      "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
 
@@ -59,15 +57,14 @@
 (load "m0clj")
 
 
+;;(load-file "/home/xubuntu/projects/cljdb/cljdb.el")
+;;(require 'cljdb)
+
 ;(load-file "/home/xubuntu/projects/nrepl-inspect/nrepl-inspect.el")
 ;(define-key nrepl-repl-mode-map (kbd "C-c C-i") 'nrepl-inspect)
 ;(define-key nrepl-interaction-mode-map (kbd "C-c C-i") 'nrepl-inspect)
 ;; Don't you hate it when people overwrite default keybindings?
 ;; me too
-(define-key cider-mode-map (kbd "C-M-.") 'nrepl-jump)
-(define-key cider-repl-mode-map (kbd "C-M-.") 'nrepl-jump)
-(define-key cider-mode-map (kbd "M-.") 'find-tag)
-(define-key cider-repl-mode-map (kbd "M-.") 'find-tag)
 
 
 
