@@ -28,6 +28,11 @@
   (m0clj-resource-init)
   (define-key cider-repl-mode-map (kbd "C-S-t") 'm0clj-class-find)
   (define-key cider-repl-mode-map (kbd "C-S-r") 'm0clj-resource-find)
+  (define-key cider-mode-map (kbd "C-M-.") 'nrepl-jump)
+  (define-key cider-repl-mode-map (kbd "C-M-.") 'nrepl-jump)
+  (define-key cider-mode-map (kbd "M-.") 'find-tag)
+  (define-key cider-repl-mode-map (kbd "M-.") 'find-tag)
+
   (eval-after-load 'clojure-mode
     '(progn
        (define-key clojure-mode-map (kbd "C-S-t") 'm0clj-class-find)
@@ -47,3 +52,19 @@
 	   project-root 
 	   (expand-file-name "~/.emacs.d/clojure/clj.etags") 
 	   project-root)))
+
+;;
+;; See http://stackoverflow.com/a/9141631/850252
+;;
+
+(defcustom path-to-ctags "/usr/bin/ctags"
+  "File to use when running etags in cygwin"
+  :type 'file
+  :group 'execute)
+
+(defun m0clj-etags-cygwin (dir-name)
+ "Create tags file."
+ (interactive "Directory: ")
+ (shell-command
+  (format "%s  --langdef=Clojure --langmap=Clojure:.clj --regex-Clojure='/[ \t\(]*def[a-z]* \([a-z!-]+\)/\1/'  --regex-Clojure='/[ \t\(]*ns \([a-z.]+\)/\1/' -f %s/TAGS -e -R %s" path-to-ctags dir-name (directory-file-name dir-name)))
+ )
