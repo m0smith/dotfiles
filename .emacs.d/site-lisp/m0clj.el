@@ -47,3 +47,19 @@
 	   project-root 
 	   (expand-file-name "~/.emacs.d/clojure/clj.etags") 
 	   project-root)))
+
+;;
+;; See http://stackoverflow.com/a/9141631/850252
+;;
+
+(defcustom path-to-ctags "/usr/bin/ctags"
+  "File to use when running etags in cygwin"
+  :type 'file
+  :group 'm0clj)
+
+(defun m0clj-tags-cygwin (dir-name)
+ "Create tags file."
+ (interactive "Directory: ")
+ (shell-command
+  (format "%s  --langdef=Clojure --langmap=Clojure:.clj --regex-Clojure='/[ \t\(]*def[a-z]* \([a-z!-]+\)/\1/'  --regex-Clojure='/[ \t\(]*ns \([a-z.]+\)/\1/' -f %s/TAGS -e -R %s" path-to-ctags dir-name (directory-file-name dir-name)))
+ )
