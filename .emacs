@@ -65,10 +65,6 @@
 ;(define-key nrepl-interaction-mode-map (kbd "C-c C-i") 'nrepl-inspect)
 ;; Don't you hate it when people overwrite default keybindings?
 ;; me too
-(define-key cider-mode-map (kbd "C-M-.") 'nrepl-jump)
-(define-key cider-repl-mode-map (kbd "C-M-.") 'nrepl-jump)
-(define-key cider-mode-map (kbd "M-.") 'find-tag)
-(define-key cider-repl-mode-map (kbd "M-.") 'find-tag)
 
 
 
