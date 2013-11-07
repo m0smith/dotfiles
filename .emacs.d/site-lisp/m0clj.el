@@ -12,23 +12,8 @@
   (nrepl-send-string-sync "(m0clj-classpath.tools/m0clj-init)")
   )
 
-(defun m0clj-resource-find (s)
-  (interactive "sCamelcase: ")
-  (message "%s" (plist-get 
-		 (nrepl-send-string-sync (format "(map first (m0clj-classpath.tools/m0clj-resource-search \"%s\"))" s))
-	    :value)))
 
-(defun m0clj-which (class-name)
-  (interactive "sClass Name: ")
-  (message "%s" (plist-get 
-	    (nrepl-send-string-sync (format "(m0clj-classpath.tools/which \"%s\")" class-name))
-	    :value)))
-
-(defun m0clj-class-find (s)
-  (interactive "sCamelcase: ")
-  (message "%s" (m0clj-class-find* s)))
-
-(defun m0clj-class-find* (s)
+(defun m0clj-class-find* (s search-func name-filter-func)
   (car (read-from-string
    (plist-get 
     (nrepl-send-string-sync 
@@ -37,10 +22,25 @@
                  (first f) 
                  [
                   (str (count (second f)))
-                  (m0clj-classpath.tools/m0clj-path-to-full-class( first f ))
+                  (%s ( first f ))
                  ])) 
-                (m0clj-classpath.tools/m0clj-class-search \"%s\"))" s))
+                (m0clj-classpath.tools/%s \"%s\"))" name-filter-func search-func s))
     :value))))
+
+(defun m0clj-resource-find (s)
+  (interactive "sCamelcase: ")
+  (m0clj-class-find* s "m0clj-resource-search" "identity" ))
+
+
+(defun m0clj-which (class-name)
+  (interactive "sClass Name: ")
+  (message "%s" (plist-get 
+	    (nrepl-send-string-sync (format "(m0clj-classpath.tools/which \"%s\")" class-name))
+	    :value)))
+
+(defun m0clj-class-find (s )
+  (interactive "sCamelcase: ")
+  (m0clj-class-find* s "m0clj-class-search" "m0clj-classpath.tools/m0clj-path-to-full-class"))
 
 (defun m0clj-cider-hook ()
   (m0clj-resource-init)

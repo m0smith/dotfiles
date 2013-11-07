@@ -19,7 +19,7 @@
 (defun m0clj-classpath-which ()
   (interactive)
   (let ((class-name (elt (tabulated-list-get-entry) 1)))
-    (message (format "current line entry is: %s" (m0clj-which class-name)))))
+    (message (format "%s from %s" class-name (m0clj-which class-name)))))
 
 (defvar m0clj-classpath-mode-map
   (let ((map (make-keymap)))
@@ -41,12 +41,13 @@
   (use-local-map m0clj-classpath-mode-map)
   (run-mode-hooks 'm0clj-classpath-mode-hook))
 
-(defun m0clj-classpath-mode (&optional seach-pattern)
+(defun m0clj-classpath-mode (&optional seach-pattern source-func)
   (interactive "sCamelCase: ")
   (pop-to-buffer "*M0CLJ Classpath*" nil)
   (m0clj-classpath)
-  (setq tabulated-list-entries
-	(m0clj-class-find* seach-pattern))
+  (let ((sf (if source-func source-func 'm0clj-class-find)))
+	(setq tabulated-list-entries
+	      (funcall sf seach-pattern)))
   (tabulated-list-print t))
 
 (provide 'm0clj-classpath)
