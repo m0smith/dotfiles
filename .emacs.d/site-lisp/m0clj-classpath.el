@@ -7,7 +7,12 @@
   :group 'programming)
 
 (defcustom m0clj-classpath-mode-hook nil
-  "Run at the very end of `dired-mode'."
+  "Run at the very end of `m0clj-classpath-mode'."
+  :group 'm0clj-classpath
+  :type 'hook)
+
+(defcustom m0clj-classpath-location-mode-hook nil
+  "Run at the very end of `m0clj-classpath-location-mode'."
   :group 'm0clj-classpath
   :type 'hook)
 
@@ -21,12 +26,33 @@
   (let ((class-name (elt (tabulated-list-get-entry) 1)))
     (message (format "%s from %s" class-name (m0clj-which class-name)))))
 
+(defun m0clj-classpath-locate ()
+  (interactive)
+  (let ((resource-key  (tabulated-list-get-id)))
+   (m0clj-classpath-location-mode resource-key)))
+
 (defvar m0clj-classpath-mode-map
   (let ((map (make-keymap)))
     (set-keymap-parent map tabulated-list-mode-map)
     (define-key map "i" 'print-current-line-id)
+    (define-key map "l" 'm0clj-classpath-locate)
     (define-key map "w" 'm0clj-classpath-which)
     map))
+
+(defvar m0clj-classpath-location-mode-map
+  (let ((map (make-keymap)))
+    (set-keymap-parent map tabulated-list-mode-map)
+    (define-key map "i" 'print-current-line-id)
+    map))
+
+
+(defun m0clj-classpath-locations-of (resource-key)
+  (interactive "sResource Name: ")
+  (car (read-from-string
+	(plist-get 
+	 (nrepl-send-string-sync (format "(m0clj-classpath.tools/locations-of \"%s\")" resource-key))
+	 :value))))
+
 
 (define-derived-mode m0clj-classpath tabulated-list-mode 
   "m0clj-classpath" "Major mode m0clj-classpath to interact with classpath classpath"
@@ -41,6 +67,22 @@
   (use-local-map m0clj-classpath-mode-map)
   (run-mode-hooks 'm0clj-classpath-mode-hook))
 
+
+(define-derived-mode m0clj-classpath-location tabulated-list-mode 
+  "m0clj-classpath-location" "Major mode m0clj-classpath-location to interact with classpath classpath"
+  (setq tabulated-list-format [("TYP" 3 nil)
+                               ("Base" 50 t)
+                               ("Path" 50 t)
+                               ;;("Col3"  10 t)
+                               ;;("Col4" 0 nil)
+			       ])
+  (setq tabulated-list-padding 2)
+  (setq tabulated-list-sort-key (cons "Base" nil))
+  (tabulated-list-init-header)
+  (use-local-map m0clj-classpath-location-mode-map)
+  (run-mode-hooks 'm0clj-classpath-location-mode-hook))
+
+
 (defun m0clj-classpath-mode (&optional seach-pattern source-func)
   (interactive "sCamelCase: ")
   (pop-to-buffer "*M0CLJ Classpath*" nil)
@@ -49,5 +91,18 @@
 	(setq tabulated-list-entries
 	      (funcall sf seach-pattern)))
   (tabulated-list-print t))
+
+
+(defun m0clj-classpath-location-mode (&optional resource-key)
+  (interactive "sResource: ")
+  (pop-to-buffer (format "*M0CLJ Location:%s*" resource-key) nil)
+  (m0clj-classpath-location)
+  (setq tabulated-list-entries (m0clj-classpath-locations-of resource-key))
+  (tabulated-list-print t))
+
+(defun m0clj-classpath-locate ()
+  (interactive)
+  (let ((resource-key  (tabulated-list-get-id)))
+   (m0clj-classpath-location-mode resource-key)))
 
 (provide 'm0clj-classpath)
