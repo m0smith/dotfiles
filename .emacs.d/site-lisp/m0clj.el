@@ -42,11 +42,15 @@
   (interactive "sCamelcase: ")
   (m0clj-class-find* s "m0clj-class-search" "m0clj-classpath.tools/m0clj-path-to-full-class"))
 
+(defun m0clj-classpath-mode-resource (s)
+  (interactive "sCamelcase: ")
+  (m0clj-classpath-mode s 'm0clj-resource-find))
+
 (defun m0clj-cider-hook ()
   (m0clj-resource-init)
   (require 'm0clj-classpath)
   (define-key cider-repl-mode-map (kbd "C-S-t") 'm0clj-classpath-mode)
-  (define-key cider-repl-mode-map (kbd "C-S-r") 'm0clj-resource-find)
+  (define-key cider-repl-mode-map (kbd "C-S-r") 'm0clj-classpath-mode-resource)
   (define-key cider-mode-map (kbd "C-M-.") 'nrepl-jump)
   (define-key cider-repl-mode-map (kbd "C-M-.") 'nrepl-jump)
   (define-key cider-mode-map (kbd "M-.") 'find-tag)
@@ -55,7 +59,7 @@
   (eval-after-load 'clojure-mode
     '(progn
        (define-key clojure-mode-map (kbd "C-S-t") 'm0clj-classpath-mode)
-       (define-key clojure-mode-map (kbd "C-S-r") 'm0clj-resource-find))))
+       (define-key clojure-mode-map (kbd "C-S-r") 'm0clj-classpath-mode-resource))))
 
 (add-hook 'nrepl-connected-hook 'm0clj-cider-hook)
 
