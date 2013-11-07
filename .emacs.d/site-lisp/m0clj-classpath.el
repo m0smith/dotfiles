@@ -26,6 +26,12 @@
   (let ((class-name (elt (tabulated-list-get-entry) 1)))
     (message (format "%s from %s" class-name (m0clj-which class-name)))))
 
+(defun m0clj-classpath-find-file ()
+  (interactive)
+  (let ((type (elt (tabulated-list-get-entry) 0))
+	(file-name (elt (tabulated-list-get-entry) 2)))
+    (find-file file-name)))
+
 (defun m0clj-classpath-locate ()
   (interactive)
   (let ((resource-key  (tabulated-list-get-id)))
@@ -43,6 +49,7 @@
   (let ((map (make-keymap)))
     (set-keymap-parent map tabulated-list-mode-map)
     (define-key map "i" 'print-current-line-id)
+    (define-key map "f" 'm0clj-classpath-find-file)
     map))
 
 
