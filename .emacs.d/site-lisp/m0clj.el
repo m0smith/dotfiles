@@ -13,9 +13,9 @@
   )
 
 (defun m0clj-resource-find (s)
-  (interactive "sCamelCase: ")
-  (message (plist-get 
-	    (nrepl-send-string-sync (format "(map first (m0clj-classpath.tools/m0clj-resource-search \"%s\"))" s))
+  (interactive "sCamelcase: ")
+  (message "%s" (plist-get 
+		 (nrepl-send-string-sync (format "(map first (m0clj-classpath.tools/m0clj-resource-search \"%s\"))" s))
 	    :value)))
 
 (defun m0clj-which (class-name)
@@ -25,8 +25,8 @@
 	    :value)))
 
 (defun m0clj-class-find (s)
-  (interactive "sCamelCase: ")
-  (message (m0clj-class-find* s)))
+  (interactive "sCamelcase: ")
+  (message "%s" (m0clj-class-find* s)))
 
 (defun m0clj-class-find* (s)
   (car (read-from-string
