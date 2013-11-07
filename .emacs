@@ -1,9 +1,9 @@
-
+(add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
 (if (eq system-type 'cygwin)
     (load-file "~/.emacs.d/cygwin/init.el"))
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/")
+
 
 ;;
 ;;  Customization setup
