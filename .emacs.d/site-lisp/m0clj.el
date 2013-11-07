@@ -14,13 +14,13 @@
 
 (defun m0clj-resource-find (s)
   (interactive "sCamel-case: ")
-  (message (plist-get 
+  (message "%s" (plist-get 
 	    (nrepl-send-string-sync (format "(map first (m0clj-classpath.tools/m0clj-resource-search \"%s\"))" s))
 	    :value)))
 
 (defun m0clj-class-find (s)
   (interactive "sCamel-case: ")
-  (message (m0clj-class-find* s)))
+  (message "%s" (m0clj-class-find* s)))
 
 (defun m0clj-class-find* (s)
   (car (read-from-string
