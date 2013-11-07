@@ -20,7 +20,7 @@
 
 (defun m0clj-which (class-name)
   (interactive "sClass Name: ")
-  (message (plist-get 
+  (message "%s" (plist-get 
 	    (nrepl-send-string-sync (format "(m0clj-classpath.tools/which \"%s\")" class-name))
 	    :value)))
 
@@ -54,7 +54,7 @@
 
   (eval-after-load 'clojure-mode
     '(progn
-       (define-key clojure-mode-map (kbd "C-S-t") 'm0clj-class-find)
+       (define-key clojure-mode-map (kbd "C-S-t") 'm0clj-classpath-mode)
        (define-key clojure-mode-map (kbd "C-S-r") 'm0clj-resource-find))))
 
 (add-hook 'nrepl-connected-hook 'm0clj-cider-hook)
