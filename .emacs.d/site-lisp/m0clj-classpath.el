@@ -37,12 +37,47 @@
   (let ((resource-key  (tabulated-list-get-id)))
    (m0clj-classpath-location-mode resource-key)))
 
+(defun m0clj-classpath-package-name ()
+  (interactive)
+  (let ((class-name (elt (tabulated-list-get-entry) 1)))
+     (string-match "\\.[^.]*\\'" class-name)
+     (substring class-name 0 (match-beginning 0))))
+
+(defun m0clj-classpath-class-name ()
+  (interactive)
+  (let ((class-name (elt (tabulated-list-get-entry) 1)))
+     (string-match "\\.[^.]*\\'" class-name)
+     (substring class-name (+ (match-beginning 0) 1))))
+
+(defun m0clj-classpath-kill-ring-save-package ()
+  (interactive)
+  (let ((s (m0clj-classpath-package-name)))
+    (kill-new s)
+    (message "Copied %s" s)))
+
+(defun m0clj-classpath-kill-ring-save-class ()
+  (interactive)
+  (let ((s (m0clj-classpath-class-name)))
+    (kill-new s)
+    (message "Copied %s" s)))
+
+(defun m0clj-classpath-kill-ring-save-full-class ()
+  (interactive)
+  (let ((s (elt (tabulated-list-get-entry) 1)))
+    (kill-new s)
+    (message "Copied %s" s)))
+
+
+
 (defvar m0clj-classpath-mode-map
   (let ((map (make-keymap)))
     (set-keymap-parent map tabulated-list-mode-map)
-    (define-key map "i" 'print-current-line-id)
+    (define-key map "=" 'print-current-line-id)
     (define-key map "l" 'm0clj-classpath-locate)
     (define-key map "w" 'm0clj-classpath-which)
+    (define-key map "P" 'm0clj-classpath-kill-ring-save-package)
+    (define-key map "c" 'm0clj-classpath-kill-ring-save-class)
+    (define-key map "C" 'm0clj-classpath-kill-ring-save-full-class)
     map))
 
 (defvar m0clj-classpath-location-mode-map
