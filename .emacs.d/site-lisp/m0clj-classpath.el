@@ -67,6 +67,18 @@
     (kill-new s)
     (message "Copied %s" s)))
 
+(defun m0clj-classpath-kill-ring-save-import ()
+  (interactive)
+  (let ((f (format "[%s %s]" (m0clj-classpath-package-name) (m0clj-classpath-class-name))))
+    (kill-new f)
+    (message "Copied %s" f)))
+
+(defun m0clj-classpath-kill-ring-save-full-import ()
+  (interactive)
+  (let ((f (format "(:import [%s %s])" (m0clj-classpath-package-name) (m0clj-classpath-class-name))))
+    (kill-new f)
+    (message "Copied %s" f)))
+
 
 
 (defvar m0clj-classpath-mode-map
@@ -78,6 +90,8 @@
     (define-key map "P" 'm0clj-classpath-kill-ring-save-package)
     (define-key map "c" 'm0clj-classpath-kill-ring-save-class)
     (define-key map "C" 'm0clj-classpath-kill-ring-save-full-class)
+    (define-key map "i" 'm0clj-classpath-kill-ring-save-import)
+    (define-key map "I" 'm0clj-classpath-kill-ring-save-full-import)
     map))
 
 (defvar m0clj-classpath-location-mode-map
@@ -97,7 +111,11 @@
 
 
 (define-derived-mode m0clj-classpath tabulated-list-mode 
-  "m0clj-classpath" "Major mode m0clj-classpath to interact with classpath classpath"
+  "m0clj-classpath" "Major mode m0clj-classpath to interact with classpath 
+
+\\{m0clj-classpath-mode-map}
+
+"
   (setq tabulated-list-format [("Cnt" 3 nil)
                                ("Name" 50 t)
                                ;;("Col3"  10 t)
@@ -111,7 +129,9 @@
 
 
 (define-derived-mode m0clj-classpath-location tabulated-list-mode 
-  "m0clj-classpath-location" "Major mode m0clj-classpath-location to interact with classpath classpath"
+  "m0clj-classpath-location" "Major mode m0clj-classpath-location to interact with classpath
+\\{m0clj-classpath-location-mode-map}
+"
   (setq tabulated-list-format [("TYP" 3 nil)
                                ("Base" 50 t)
                                ("Path" 50 t)
