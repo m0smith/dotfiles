@@ -38,6 +38,13 @@ if [[ ! -f ~/bin/lein ]]; then
     chmod +x lein
 fi
 
+if [[ ! -f ~/bin/lein-exec ]]; then
+    cd ~/bin
+    wget https://raw.github.com/kumarshantanu/lein-exec/master/lein-exec
+    chmod +x lein-exec
+
+fi
+
 
 if [[ ! -d ~/projects/cljdb ]]; then
     cd ~/projects
