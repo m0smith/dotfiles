@@ -79,6 +79,18 @@
     (kill-new f)
     (message "Copied %s" f)))
 
+(defun m0clj-classpath-kill-ring-save-base ()
+  (interactive)
+  (let ((s (elt (tabulated-list-get-entry) 1)))
+    (kill-new s)
+    (message "Copied %s" s)))
+
+(defun m0clj-classpath-kill-ring-save-path ()
+  (interactive)
+  (let ((s (elt (tabulated-list-get-entry) 2)))
+    (kill-new s)
+    (message "Copied %s" s)))
+
 
 
 (defvar m0clj-classpath-mode-map
@@ -99,6 +111,8 @@
     (set-keymap-parent map tabulated-list-mode-map)
     (define-key map "i" 'print-current-line-id)
     (define-key map "f" 'm0clj-classpath-find-file)
+    (define-key map "b" 'm0clj-classpath-kill-ring-save-base)
+    (define-key map "P" 'm0clj-classpath-kill-ring-save-path)
     map))
 
 
@@ -130,6 +144,7 @@
 
 (define-derived-mode m0clj-classpath-location tabulated-list-mode 
   "m0clj-classpath-location" "Major mode m0clj-classpath-location to interact with classpath
+
 \\{m0clj-classpath-location-mode-map}
 "
   (setq tabulated-list-format [("TYP" 3 nil)
