@@ -174,7 +174,7 @@
                 (let [r (to-tl (%s))]
 		[
 		  (mapv (fn [f g] (list g 20 \t)) (first r) (map str (repeat \"COL-\") (range)))
-		  (map (fn [f] (list (first f) (mapv str f))) r)
+		  (map (fn [f] (list (str (first f)) (mapv str f))) r)
 		]))" func-name)))
     ;(message "m0clj-tl-call: %s" ff)
 
@@ -212,6 +212,15 @@
   (use-local-map m0clj-tl-mode-map)
   (run-mode-hooks 'm0clj-classpath-location-mode-hook))
 
+
+(defun m0clj-classpath-mode (&optional seach-pattern source-func)
+  (interactive "sCamelCase: ")
+  (pop-to-buffer "*M0CLJ Classpath*" nil)
+  (m0clj-classpath)
+  (let ((sf (if source-func source-func 'm0clj-class-find)))
+        (setq tabulated-list-entries
+         (funcall sf seach-pattern)))
+  (tabulated-list-print t))
 
 (defun m0clj-tl-mode ( clj-func )
   (interactive "sCLJ Function and args : ")
