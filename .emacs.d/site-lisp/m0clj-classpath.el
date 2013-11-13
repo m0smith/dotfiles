@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2013 Matthew O. Smith
 
-;; Author: Sebastian Kremer <matt@m0smith.com>
+;; Author: Matthew O. Smith <matt@m0smith.com>
 ;; Maintainer: 
 ;; Keywords: clojure classpath
 ;; Package: m0clj
