@@ -1,54 +1,8 @@
 
-;;;
-;;; search for resources on classpath
-;;;
-
-;;(nrepl-send-string-sync "(.getContextClassLoader (Thread/currentThread))")
-;;(nrepl-send-string-sync "(.getURLs (.getClassLoader (.getClass clojure-version)))")
-
-(defun m0clj-resource-init ()
-  (interactive)
-  (nrepl-send-string-sync "(use 'm0clj-classpath.tools)")
-  (nrepl-send-string-sync "(m0clj-classpath.tools/m0clj-init)")
-  )
-
-
-(defun m0clj-class-find* (s search-func name-filter-func)
-  (car (read-from-string
-   (plist-get 
-    (nrepl-send-string-sync 
-     (format "(map (fn [f] 
-               (list 
-                 (first f) 
-                 [
-                  (str (count (second f)))
-                  (%s ( first f ))
-                 ])) 
-                (m0clj-classpath.tools/%s \"%s\"))" name-filter-func search-func s))
-    :value))))
-
-(defun m0clj-resource-find (s)
-  (interactive "sCamelcase: ")
-  (m0clj-class-find* s "m0clj-resource-search" "identity" ))
-
-
-(defun m0clj-which (class-name)
-  (interactive "sClass Name: ")
-  (message "%s" (plist-get 
-	    (nrepl-send-string-sync (format "(m0clj-classpath.tools/which \"%s\")" class-name))
-	    :value)))
-
-(defun m0clj-class-find (s )
-  (interactive "sCamelcase: ")
-  (m0clj-class-find* s "m0clj-class-search" "m0clj-classpath.tools/m0clj-path-to-full-class"))
-
-(defun m0clj-classpath-mode-resource (s)
-  (interactive "sCamelcase: ")
-  (m0clj-classpath-mode s 'm0clj-resource-find))
 
 (defun m0clj-cider-hook ()
-  (m0clj-resource-init)
   (require 'm0clj-classpath)
+  (m0clj-classpath-resource-init)
   (define-key cider-repl-mode-map (kbd "C-S-t") 'm0clj-classpath-mode)
   (define-key cider-repl-mode-map (kbd "C-S-r") 'm0clj-classpath-mode-resource)
   (define-key cider-mode-map (kbd "C-M-.") 'nrepl-jump)
