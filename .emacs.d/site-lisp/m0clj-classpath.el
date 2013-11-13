@@ -23,6 +23,48 @@
   :type 'hook)
 
 
+(defun m0clj-classpath-resource-init ()
+  (interactive)
+  (nrepl-send-string-sync "(use 'm0clj-classpath.tools)")
+  (nrepl-send-string-sync "(m0clj-classpath.tools/m0clj-init)")
+  )
+
+
+(defun m0clj-classpath-class-find* (s search-func name-filter-func)
+  (car (read-from-string
+   (plist-get 
+    (nrepl-send-string-sync 
+     (format "(map (fn [f] 
+               (list 
+                 (first f) 
+                 [
+                  (str (count (second f)))
+                  (%s ( first f ))
+                 ])) 
+                (m0clj-classpath.tools/%s \"%s\"))" name-filter-func search-func s))
+    :value))))
+
+(defun m0clj-classpath-resource-find (s)
+  (interactive "sCamelcase: ")
+  (m0clj-classpath-class-find* s "m0clj-resource-search" "identity" ))
+
+
+(defun m0clj-classpath-which (class-name)
+  (interactive "sClass Name: ")
+  (message "%s" (plist-get 
+	    (nrepl-send-string-sync (format "(m0clj-classpath.tools/which \"%s\")" class-name))
+	    :value)))
+
+(defun m0clj-classpath-class-find (s )
+  (interactive "sCamelcase: ")
+  (m0clj-classpath-class-find* s "m0clj-class-search" "m0clj-classpath.tools/m0clj-path-to-full-class"))
+
+(defun m0clj-classpath-mode-resource (s)
+  (interactive "sCamelcase: ")
+  (m0clj-classpath-mode s 'm0clj-classpath-resource-find))
+
+
+
 (defun print-current-line-id ()
   (interactive)
    (message (concat "current line ID is: " (tabulated-list-get-id))))
@@ -30,7 +72,7 @@
 (defun m0clj-classpath-which ()
   (interactive)
   (let ((class-name (elt (tabulated-list-get-entry) 1)))
-    (message (format "%s from %s" class-name (m0clj-which class-name)))))
+    (message (format "%s from %s" class-name (m0clj-classpath-which class-name)))))
 
 (defun m0clj-classpath-find-file ()
   (interactive)
@@ -235,7 +277,7 @@
   (interactive "sCamelCase: ")
   (pop-to-buffer "*M0CLJ Classpath*" nil)
   (m0clj-classpath)
-  (let ((sf (if source-func source-func 'm0clj-class-find)))
+  (let ((sf (if source-func source-func 'm0clj-classpath-class-find)))
         (setq tabulated-list-entries
          (funcall sf seach-pattern)))
   (tabulated-list-print t))
