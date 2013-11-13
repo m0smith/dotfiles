@@ -1,6 +1,64 @@
+;;; m0clj-classpath.el --- Clojure Classpath Browsing -*- lexical-binding: t -*-
+
+;; Copyright (C) 2013 Matthew O. Smith
+
+;; Author: Sebastian Kremer <matt@m0smith.com>
+;; Maintainer: 
+;; Keywords: clojure classpath
+;; Package: m0clj
+
+;; This file is NOT part of GNU Emacs.
+
+;; GNU Emacs is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; GNU Emacs is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;
+;; This motivated by the Eclipse Open Type (C-S-t) and Open Resource
+;; (C-S-r) functionality and a desire to import it to the Emacs-Clojure-Cider.
+;;
+;;  Getting Started:
+;;     Required ELPA packages:  pkg-info cider 
+;;     External Software:
+;;        * lein - https://raw.github.com/technomancy/leiningen/stable/bin/lein
+;;
+;;     LEIN configuration: in ~/.lein/profiles.clj
+;;         {:user {:dependencies [[org.clojure/tools.nrepl "0.2.3"]
+;;			          [m0clj-classpath "0.1.5"]] }}
+;;
+;;     EMACS Configuration
+;;      (defun m0clj-cider-hook ()
+;;         (require 'm0clj-classpath)
+;;         (m0clj-classpath-resource-init)
+;;         (define-key cider-repl-mode-map (kbd "C-S-t") 'm0clj-classpath-mode)
+;;         (define-key cider-repl-mode-map (kbd "C-S-r") 'm0clj-classpath-mode-resource))
+;;
+;;      (eval-after-load 'clojure-mode
+;;        '(progn
+;;           (define-key clojure-mode-map (kbd "C-S-t") 'm0clj-classpath-mode)
+;;           (define-key clojure-mode-map (kbd "C-S-r") 'm0clj-classpath-mode-resource))))
+
+;;  (add-hook 'nrepl-connected-hook 'm0clj-cider-hook)
+
+;;
 ;;
 ;; thanks to http://stackoverflow.com/a/11529749/850252
 ;;
+
+
+
+;;; Customizable variables
 
 (defgroup m0clj-classpath nil
   "Class Loader mode for use with cider."
@@ -21,6 +79,9 @@
   "Run at the very end of `m0clj-tl-mode'."
   :group 'm0clj-classpath
   :type 'hook)
+
+
+;;; Code:
 
 
 (defun m0clj-classpath-resource-init ()
