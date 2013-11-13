@@ -17,6 +17,12 @@
   :type 'hook)
 
 
+(defcustom m0clj-tl-mode-hook nil
+  "Run at the very end of `m0clj-tl-mode'."
+  :group 'm0clj-classpath
+  :type 'hook)
+
+
 (defun print-current-line-id ()
   (interactive)
    (message (concat "current line ID is: " (tabulated-list-get-id))))
@@ -160,13 +166,64 @@
   (run-mode-hooks 'm0clj-classpath-location-mode-hook))
 
 
-(defun m0clj-classpath-mode (&optional seach-pattern source-func)
-  (interactive "sCamelCase: ")
-  (pop-to-buffer "*M0CLJ Classpath*" nil)
-  (m0clj-classpath)
-  (let ((sf (if source-func source-func 'm0clj-class-find)))
-	(setq tabulated-list-entries
-	      (funcall sf seach-pattern)))
+
+
+(defun m0clj-tl-call (func-name)
+  (interactive "sCLJ Class Name and args: ")
+  (let (( ff (format "(letfn [(to-tl [f] (if (instance? clojure.lang.Seqable f)  (if (instance? clojure.lang.Seqable (first f)) f (map vector f)) [[f]]))]
+                (let [r (to-tl (%s))]
+		[
+		  (mapv (fn [f g] (list g 20 \t)) (first r) (map str (repeat \"COL-\") (range)))
+		  (map (fn [f] (list (first f) (mapv str f))) r)
+		]))" func-name)))
+    ;(message "m0clj-tl-call: %s" ff)
+
+    (car (read-from-string
+	  (plist-get 
+	   (nrepl-send-string-sync ff)
+	   :value)))))
+
+
+(defun m0clj-tl-format (s)
+ (format "\"%s\"" s))
+
+(defun m0clj-tl-call-with-current (func-name)
+  (interactive "sCLJ Class Name and args: ")
+  (let (( f (format "%s %s" func-name   (apply 'vector (mapcar 'm0clj-tl-format (tabulated-list-get-entry))))))
+    ;(message "%s" f)
+    (m0clj-tl-mode f)
+))
+
+(defvar m0clj-tl-mode-map
+  (let ((map (make-keymap)))
+    (set-keymap-parent map tabulated-list-mode-map)
+    (define-key map "i" 'print-current-line-id)
+    (define-key map "c" 'm0clj-tl-call-with-current)
+
+    map))
+
+
+(define-derived-mode m0clj-tl tabulated-list-mode 
+  "m0clj-tl" "Major mode m0clj-tl to interact with clojure results
+
+\\{m0clj-tl-mode-map}
+"
+  (setq tabulated-list-padding 2)
+  (use-local-map m0clj-tl-mode-map)
+  (run-mode-hooks 'm0clj-classpath-location-mode-hook))
+
+
+(defun m0clj-tl-mode ( clj-func )
+  (interactive "sCLJ Function and args : ")
+  (pop-to-buffer "*M0CLJ TL*" nil)
+  (let (( table-info (m0clj-tl-call clj-func) ))
+    ;(message "%s" table-info)
+    (setq tabulated-list-format (elt table-info 0))
+    (setq tabulated-list-sort-key (cons "COL-0" nil))
+    (setq tabulated-list-entries (elt table-info 1)))
+	  
+  (m0clj-tl)
+  (tabulated-list-init-header)
   (tabulated-list-print t))
 
 
