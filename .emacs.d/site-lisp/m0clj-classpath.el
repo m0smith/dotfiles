@@ -4,7 +4,7 @@
 
 ;; Author: Matthew O. Smith <matt@m0smith.com>
 ;; Maintainer: 
-;; Keywords: clojure classpath
+;; Keywords: clojure classpath cider nrepl
 ;; Package: m0clj
 
 ;; This file is NOT part of GNU Emacs.
