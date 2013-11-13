@@ -200,12 +200,15 @@
 (defun m0clj-tl-format (s)
  (format "\"%s\"" s))
 
-(defun m0clj-tl-call-with-current (func-name)
-  (interactive "sCLJ Class Name and args: ")
-  (let (( f (format "%s %s" func-name   (apply 'vector (mapcar 'm0clj-tl-format (tabulated-list-get-entry))))))
-    ;(message "%s" f)
-    (m0clj-tl-mode f)
-))
+(defun m0clj-tl-call-with-current (func-name column)
+  (interactive "sCLJ Class Name and args: \nP")
+  (message "%s" column)
+  (let (( arg (if column  
+		  (m0clj-tl-format (elt (tabulated-list-get-entry) column))
+		(apply 'vector (mapcar 'm0clj-tl-format (tabulated-list-get-entry))))))
+    (let (( f (format "%s %s" func-name  arg)))
+      ;;(message "%s" f)
+      (m0clj-tl-mode f))))
 
 
 (defvar m0clj-tl-mode-map
