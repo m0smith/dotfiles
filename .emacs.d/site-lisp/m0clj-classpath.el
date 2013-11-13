@@ -85,6 +85,19 @@
     (kill-new f)
     (message "Copied %s" f)))
 
+
+(defun m0clj-classpath-kill-ring-save-column (column)
+  (interactive "p")
+  (if (< column 0 )
+      (let ((s  (tabulated-list-get-entry) ))
+	(kill-new (format "%s" s))
+	(message "Copied %s" s))
+    (let ((s (elt (tabulated-list-get-entry) column)))
+      (kill-new s)
+      (message "Copied %s" s))))
+  
+
+
 (defun m0clj-classpath-kill-ring-save-base ()
   (interactive)
   (let ((s (elt (tabulated-list-get-entry) 1)))
@@ -194,11 +207,13 @@
     (m0clj-tl-mode f)
 ))
 
+
 (defvar m0clj-tl-mode-map
   (let ((map (make-keymap)))
     (set-keymap-parent map tabulated-list-mode-map)
     (define-key map "i" 'print-current-line-id)
     (define-key map "c" 'm0clj-tl-call-with-current)
+    (define-key map "w" 'm0clj-classpath-kill-ring-save-column)
 
     map))
 
