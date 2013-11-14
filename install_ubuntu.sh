@@ -2,7 +2,7 @@
 # Useful and necessary
 #
 
-sudo apt-get install emacs24 emacs24-el git ssh xterm  software-properties-common x11-apps
+sudo apt-get install emacs24 emacs24-el git ssh xterm wget software-properties-common x11-apps unzip
 
 #
 # Java
