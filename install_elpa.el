@@ -22,6 +22,7 @@
 
 (package-install 'pkg-info)
 (package-install 'cider)
+(package-install 'clojure-cheatsheet)
 (package-install 'rainbow-delimiters)
 (package-install 'move-text)
 (package-install 'web-mode)
