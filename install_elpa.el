@@ -26,4 +26,5 @@
 (package-install 'rainbow-delimiters)
 (package-install 'move-text)
 (package-install 'web-mode)
+(package-install 'cider-tracing)
 
