@@ -30,7 +30,11 @@ if [[ ! -d ~/projects ]]; then
     mkdir ~/projects
 fi
 
+
+
 install_elpa
+
+
 
 if [[ ! -f ~/bin/lein ]]; then
     cd ~/bin

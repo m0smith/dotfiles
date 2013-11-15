@@ -24,3 +24,5 @@
 (package-install 'cider)
 (package-install 'rainbow-delimiters)
 (package-install 'move-text)
+(package-install 'web-mode)
+
