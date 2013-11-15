@@ -29,7 +29,7 @@ link_with_backup .lein
 
 
 create_dir ~/bin
-create_dir~/projects
+create_dir ~/projects
 create_dir ~/opt
 
 install_elpa
