@@ -76,10 +76,6 @@
 ;(load-file "/home/xubuntu/projects/nrepl-inspect/nrepl-inspect.el")
 ;(define-key nrepl-repl-mode-map (kbd "C-c C-i") 'nrepl-inspect)
 ;(define-key nrepl-interaction-mode-map (kbd "C-c C-i") 'nrepl-inspect)
-;; Don't you hate it when people overwrite default keybindings?
-;; me too
-
-
 
 
 ;;
