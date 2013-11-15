@@ -23,3 +23,9 @@ function install_elpa {
     rm -rf "$DOTFILES/.emacs.d/elpa"
     emacs --script "$DOTFILES/install_elpa.el"
 }
+
+function create_dir {
+    if [[ ! -d "$1" ]]; then
+	mkdir -p "$1"
+    fi
+}

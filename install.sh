@@ -12,6 +12,11 @@ export DOTFILES=`pwd`
 os=`uname -o`
 if [[ "$os" = "Cygwin" ]]; then 
     . $DOTFILES/install_win.sh
+else
+    os2=`cat /proc/version_signature | cut -d" " -f1`
+    if [[ "$os" = "Ubuntu" ]]; then 
+	. $DOTFILES/install_ubuntu.sh
+    fi
 fi
 
 link_with_backup .bash_profile
@@ -22,20 +27,12 @@ link_with_backup .gitignore
 link_with_backup .gitconfig
 link_with_backup .lein
 
-if [[ ! -d ~/bin ]]; then
-    mkdir ~/bin
-fi
 
-if [[ ! -d ~/projects ]]; then
-    mkdir ~/projects
-fi
-if [[ ! -d ~/opt ]]; then
-    mkdir ~/opt
-fi
-
+create_dir ~/bin
+create_dir~/projects
+create_dir ~/opt
 
 install_elpa
-
 
 
 if [[ ! -f ~/bin/lein ]]; then
@@ -56,6 +53,7 @@ if [[ ! -f ~/bin/mvn ]]; then
     wget http://psg.mtu.edu/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip
     cd ~/opt
     unzip /tmp/apache-maven-3.0.5-bin.zip
+    rm /tmp/apache-maven-3.0.5-bin.zip
     cd ~/bin
     ln -s ~/opt/apache-maven-3.0.5/bin/mvn mvn
     chmod +x mvn
