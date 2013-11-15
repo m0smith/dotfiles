@@ -29,7 +29,9 @@ fi
 if [[ ! -d ~/projects ]]; then
     mkdir ~/projects
 fi
-
+if [[ ! -d ~/opt ]]; then
+    mkdir ~/opt
+fi
 
 
 install_elpa
@@ -47,6 +49,16 @@ if [[ ! -f ~/bin/lein-exec ]]; then
     wget https://raw.github.com/kumarshantanu/lein-exec/master/lein-exec
     chmod +x lein-exec
 
+fi
+
+if [[ ! -f ~/bin/mvn ]]; then
+    cd /tmp
+    wget http://psg.mtu.edu/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip
+    cd ~/opt
+    unzip /tmp/apache-maven-3.0.5-bin.zip
+    cd ~/bin
+    ln -s ~/opt/apache-maven-3.0.5/bin/mvn mvn
+    chmod +x mvn
 fi
 
 
