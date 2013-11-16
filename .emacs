@@ -57,6 +57,18 @@
 (load "m0clj")
 
 
+;;
+;; WEB MODE http://web-mode.org/
+;;
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
 ;;(load-file "/home/xubuntu/projects/cljdb/cljdb.el")
 ;;(require 'cljdb)
@@ -64,10 +76,6 @@
 ;(load-file "/home/xubuntu/projects/nrepl-inspect/nrepl-inspect.el")
 ;(define-key nrepl-repl-mode-map (kbd "C-c C-i") 'nrepl-inspect)
 ;(define-key nrepl-interaction-mode-map (kbd "C-c C-i") 'nrepl-inspect)
-;; Don't you hate it when people overwrite default keybindings?
-;; me too
-
-
 
 
 ;;

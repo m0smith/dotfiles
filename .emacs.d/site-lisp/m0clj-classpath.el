@@ -92,6 +92,7 @@
 
 
 (defun m0clj-classpath-class-find* (s search-func name-filter-func)
+  (message "m0clj-classpath-class-find*: %s" search-func)
   (car (read-from-string
    (plist-get 
     (nrepl-send-string-sync 
