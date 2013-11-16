@@ -14,10 +14,14 @@ if [[ "$os" = "Cygwin" ]]; then
     . $DOTFILES/install_win.sh
 else
     os2=`cat /proc/version_signature | cut -d" " -f1`
-    if [[ "$os" = "Ubuntu" ]]; then 
+    if [[ "$os2" = "Ubuntu" ]]; then 
 	. $DOTFILES/install_ubuntu.sh
+    else 
+	echo "os=$os and os2=$os2"
+	exit 1
     fi
 fi
+
 
 link_with_backup .bash_profile
 link_with_backup .emacs.d
@@ -26,6 +30,7 @@ link_with_backup .emacs-custom.el
 link_with_backup .gitignore
 link_with_backup .gitconfig
 link_with_backup .lein
+
 
 
 create_dir ~/bin

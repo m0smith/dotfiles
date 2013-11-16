@@ -12,9 +12,8 @@
 ;;      (quote (("http" . "proxy.ihc.com:8080") 
 ;;	      ("https" . "proxy.ihc.com:8080"))))
 
-(add-to-list 'package-archives
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
 (package-refresh-contents)

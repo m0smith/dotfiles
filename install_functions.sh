@@ -19,6 +19,15 @@ function link_with_backup {
     ln -s "$source" "$target"
 }
 
+function link_with_backup2 {
+    local filename="$1"
+    local targetname="$2"
+    local source="$DOTFILES/$filename"
+    local target="$HOME/$targetname"
+    backup "$target"
+    ln -s "$source" "$HOME/$targetname"
+}
+
 function install_elpa {
     rm -rf "$DOTFILES/.emacs.d/elpa"
     emacs --script "$DOTFILES/install_elpa.el"
