@@ -63,19 +63,21 @@ if [[ ! -f ~/bin/mvn ]]; then
     cd ~/bin
     ln -s ~/opt/apache-maven-3.0.5/bin/mvn mvn
     chmod +x mvn
+    echo "Maven installed"
 fi
 
 if [[ ! -f ~/bin/ant ]]; then
-    local pname=apache-ant-1.9.2
-    local zname=${pname}-bin.zip
+    pname=apache-ant-1.9.2
+    zname=${pname}-bin.zip
     cd /tmp
-    wget http://apache.mirrors.tds.net//ant/binaries/$zname
+    wget http://apache.mirrors.tds.net/ant/binaries/$zname
     cd ~/opt
     unzip -q /tmp/$zname
     rm /tmp/$zname
     cd ~/bin
     ln -s ~/opt/$pname/bin/ant ant
     chmod +x ant
+    echo "Ant installed"
 fi
 
 
