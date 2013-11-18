@@ -83,12 +83,14 @@
 ;;  https://github.com/dstu/malabar-mode
 ;;
 
-(require 'cedet)
+;; commented out because it can't load groovy in cygwinc
+
+;(require 'cedet)
 ;(require 'semantic)
 ;(semantic-load-enable-minimum-features) ;; or enable more if you wish
-(require 'malabar-mode)
-(setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
-(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
+;(require 'malabar-mode)
+;(setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
+;(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 
 
 ;;(load-file "/home/xubuntu/projects/cljdb/cljdb.el")
