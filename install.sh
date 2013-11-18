@@ -58,12 +58,29 @@ if [[ ! -f ~/bin/mvn ]]; then
     cd /tmp
     wget http://psg.mtu.edu/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip
     cd ~/opt
-    unzip /tmp/apache-maven-3.0.5-bin.zip
+    unzip -a /tmp/apache-maven-3.0.5-bin.zip
     rm /tmp/apache-maven-3.0.5-bin.zip
     cd ~/bin
     ln -s ~/opt/apache-maven-3.0.5/bin/mvn mvn
     chmod +x mvn
+    echo "Maven installed"
 fi
+
+if [[ ! -f ~/bin/ant ]]; then
+    pname=apache-ant-1.9.2
+    zname=${pname}-bin.zip
+    cd /tmp
+    wget http://apache.mirrors.tds.net/ant/binaries/$zname
+    cd ~/opt
+    unzip -q /tmp/$zname
+    rm /tmp/$zname
+    cd ~/bin
+    ln -s ~/opt/$pname/bin/ant ant
+    chmod +x ant
+    echo "Ant installed"
+fi
+
+
 
 
 if [[ ! -d ~/projects/cljdb ]]; then
@@ -73,7 +90,9 @@ fi
 
 if [[ ! -d ~/projects/malabar-mode ]]; then
     cd ~/projects
-    git clone https://github.com/dstu/malabar-mode.git
+    ## git clone https://github.com/dstu/malabar-mode.git
+    ## git clone https://github.com/blackd/malabar-mode.git
+    git clone https://github.com/m0smith/malabar-mode.git --branch buzztaiki
     if [[ "$os" = "Cygwin" ]]; then 
 	w=`which emacs`
 	echo `cygpath -w $w`" %* " > ~/projects/malabar-mode/emacs.bat
