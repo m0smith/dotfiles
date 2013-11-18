@@ -31,6 +31,7 @@ link_with_backup .lein
 create_dir ~/bin
 create_dir ~/projects
 create_dir ~/opt
+create_dir ~/.emacs.d/init.d
 
 install_elpa
 
@@ -63,6 +64,23 @@ fi
 if [[ ! -d ~/projects/cljdb ]]; then
     cd ~/projects
     git clone https://github.com/m0smith/cljdb.git
+fi
+
+if [[ ! -d ~/projects/malabar-mode ]]; then
+    cd ~/projects
+    git clone https://github.com/dstu/malabar-mode.git
+    if [[ "$os" = "Cygwin" ]]; then 
+	w=`which emacs`
+	echo `cygpath -w $w`" %* " > ~/projects/malabar-mode/emacs.bat
+    fi
+    cd malabar-mode
+    mvn package
+    local p=`pwd`
+    cd ~/.emacs.d/
+    unzip "$p/target/malabar-*-dist.zip"
+    local mver=`ls -dt mala* | head -1`
+    echo "(setq  malabar-dir \"~/.emacs.d/$mver\")" > ~/.emacs.d/init.d/malabar-mode-dir.el
+    echo "(add-to-list 'load-path (expand-file-name (format \"%s/lisp\" malabar-dir)))" >> ~/.emacs.d/init.d/malabar-mode-dir.el
 fi
 
 

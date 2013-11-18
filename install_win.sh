@@ -59,6 +59,8 @@ if [[ "$os" = "Cygwin" ]]; then
 
     fi
 
+
+
 else
     echo "Only works in Cygwin not $os"
 fi

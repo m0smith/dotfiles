@@ -3,7 +3,14 @@
 (if (eq system-type 'cygwin)
     (load-file "~/.emacs.d/cygwin/init.el"))
 
+;;
+;; From http://devblog.avdi.org/2011/10/10/breaking-up-init-el-emacs-reboot-13/
+;;
 
+(setq abg-init-dir "~/.emacs.d/init.d")
+(if (file-exists-p abg-init-dir)
+    (dolist (file (directory-files abg-init-dir t "\.el$"))
+      (load file)))
 
 ;;
 ;;  Customization setup
@@ -69,6 +76,20 @@
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+
+
+;;
+;; Malabar Mode
+;;  https://github.com/dstu/malabar-mode
+;;
+
+(require 'cedet)
+;(require 'semantic)
+;(semantic-load-enable-minimum-features) ;; or enable more if you wish
+(require 'malabar-mode)
+(setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
+(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
+
 
 ;;(load-file "/home/xubuntu/projects/cljdb/cljdb.el")
 ;;(require 'cljdb)
