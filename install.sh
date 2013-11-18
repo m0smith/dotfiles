@@ -74,7 +74,8 @@ fi
 if [[ ! -d ~/projects/malabar-mode ]]; then
     cd ~/projects
     ## git clone https://github.com/dstu/malabar-mode.git
-    git clone https://github.com/blackd/malabar-mode.git
+    ## git clone https://github.com/blackd/malabar-mode.git
+    git clone https://github.com/m0smith/malabar-mode.git
     if [[ "$os" = "Cygwin" ]]; then 
 	w=`which emacs`
 	echo `cygpath -w $w`" %* " > ~/projects/malabar-mode/emacs.bat
