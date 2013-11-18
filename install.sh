@@ -86,6 +86,8 @@ if [[ ! -d ~/projects/malabar-mode ]]; then
     local mver=`ls -dt mala* | head -1`
     echo "(setq  malabar-dir \"~/.emacs.d/$mver\")" > ~/.emacs.d/init.d/malabar-mode-dir.el
     echo "(add-to-list 'load-path (expand-file-name (format \"%s/lisp\" malabar-dir)))" >> ~/.emacs.d/init.d/malabar-mode-dir.el
+    cd ~/.emacs.d/$mver
+    find ./ -name '*.el' | xargs emacs -batch -f batch-byte-compile
 fi
 
 
