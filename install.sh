@@ -58,12 +58,27 @@ if [[ ! -f ~/bin/mvn ]]; then
     cd /tmp
     wget http://psg.mtu.edu/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip
     cd ~/opt
-    unzip /tmp/apache-maven-3.0.5-bin.zip
+    unzip -a /tmp/apache-maven-3.0.5-bin.zip
     rm /tmp/apache-maven-3.0.5-bin.zip
     cd ~/bin
     ln -s ~/opt/apache-maven-3.0.5/bin/mvn mvn
     chmod +x mvn
 fi
+
+if [[ ! -f ~/bin/ant ]]; then
+    local pname=apache-ant-1.9.2
+    local zname=${pname}-bin.zip
+    cd /tmp
+    wget http://apache.mirrors.tds.net//ant/binaries/$zname
+    cd ~/opt
+    unzip -q /tmp/$zname
+    rm /tmp/$zname
+    cd ~/bin
+    ln -s ~/opt/$pname/bin/ant ant
+    chmod +x ant
+fi
+
+
 
 
 if [[ ! -d ~/projects/cljdb ]]; then
