@@ -82,13 +82,17 @@
 ;; Malabar Mode
 ;;  https://github.com/dstu/malabar-mode
 ;;
-
-;; commented out because it can't load groovy in cygwinc
+(setq stack-trace-on-error t)
+(add-to-list 'load-path "~/projects/ecb/")
+(require 'ecb)
 
 (require 'cedet)
 (require 'semantic)
-;(semantic-load-enable-minimum-features) ;; or enable more if you wish
+(load "semantic/loaddefs.el")
+;;(;;semantic-load-enable-minimum-features) ;; or enable more if you wish
+(semantic-mode 1)
 (require 'malabar-mode)
+(load "malabar-util.el")
 (setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 
