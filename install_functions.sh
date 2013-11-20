@@ -30,7 +30,7 @@ function link_with_backup2 {
 
 function install_elpa {
     rm -rf "$DOTFILES/.emacs.d/elpa"
-    emacs --script "$DOTFILES/install_elpa.el"
+   DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs  -nw --script "$DOTFILES/install_elpa.el"
 }
 
 function create_dir {
@@ -56,7 +56,7 @@ function install_malabar_mode {
     if [[ -d ~/projects/malabar-mode ]]; then
 	if [[ "$os" = "Cygwin" ]]; then 
 	    w=`which emacs`
-	    echo `cygpath -w $w`" %* " > ~/projects/malabar-mode/emacs.bat
+	    echo `cygpath -w $w`" -nw %* " > ~/projects/malabar-mode/emacs.bat
 	fi
 	cd ~/projects/malabar-mode
 	mvn package
@@ -74,7 +74,7 @@ function install_malabar_mode {
 	echo "(setq malabar-util-groovy-file-filter 'malabar-util-reverse-slash)"  >> ~/.emacs.d/init.d/malabar-mode-cygwin.el
 
 	cd ~/.emacs.d/$mver
-	find ./ -name '*.el' | xargs emacs -batch -f batch-byte-compile
+	find ./ -name '*.el' | xargs emacs -nw -batch -f batch-byte-compile
     fi
 }
 
