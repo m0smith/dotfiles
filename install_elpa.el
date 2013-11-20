@@ -8,9 +8,6 @@
 ;; Marmalade: http://marmalade-repo.org/
 (require 'package)
 
-;;(setq url-proxy-services 
-;;      (quote (("http" . "proxy.ihc.com:8080") 
-;;	      ("https" . "proxy.ihc.com:8080"))))
 
 (add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives  '("melpa" . "http://melpa.milkbox.net/packages/") t)
