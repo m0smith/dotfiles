@@ -23,7 +23,7 @@ EOF
 os=`uname -o`
 if [[ "$os" = "Cygwin" ]]; then 
 
-    link_with_backup2 mswindows/.bashrc_cygwin .bashrc_os
+    link_with_backup2 mswindows/.bashrc_cygwin .profile.d/.bashrc_cygwin 
 
     cygwin_requires "emacs"
     cygwin_requires "curl"

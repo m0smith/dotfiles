@@ -37,6 +37,7 @@ create_dir ~/bin
 create_dir ~/projects
 create_dir ~/opt
 create_dir ~/.emacs.d/init.d
+create_dir ~/.profile.d
 
 install_elpa
 
