@@ -41,6 +41,9 @@ create_dir ~/.profile.d
 
 install_elpa
 
+if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
+    echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
+fi
 
 if [[ ! -f ~/bin/lein ]]; then
     cd ~/bin
