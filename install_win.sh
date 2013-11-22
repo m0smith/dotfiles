@@ -61,7 +61,28 @@ if [[ "$os" = "Cygwin" ]]; then
         ln -s "$d"  /usr/local/bin86
 
     fi
+    set -x
+    emacs=`which emacs`
+    emacsclient=`which emacsclient`
+    e=`cygpath -w "$emacs" | sed 's/\\\\/\\\\\\\\/g'`
+    ec=`cygpath -w "$emacsclient" | sed 's/\\\\/\\\\\\\\/g'`
+    cat > /tmp/emacs.reg <<EOF
+Windows Registry Editor Version 5.00
 
+[HKEY_CLASSES_ROOT\*\shell]
+[HKEY_CLASSES_ROOT\*\shell\openwemacs]
+@="&Edit with Emacs"
+[HKEY_CLASSES_ROOT\*\shell\openwemacs\command]
+@="$ec --alternate-editor=\"$e\" -n \"%1\""
+[HKEY_CLASSES_ROOT\Directory\shell\openwemacs]
+@="Edit &with Emacs"
+[HKEY_CLASSES_ROOT\Directory\shell\openwemacs\command]
+@="$ec --alternate-editor=\"$e\" -n \"%1\""
+EOF
+
+    unix2dos /tmp/emacs.reg
+    cd /tmp
+    regedit /s emacs.reg
 
 
 else
