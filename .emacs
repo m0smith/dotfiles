@@ -47,6 +47,14 @@
 
 (package-initialize)
 
+
+;;
+;; Start the emacs server going
+;;
+
+(require 'server)
+(server-start)
+
 ;;;
 ;;; Move Text
 ;;;
