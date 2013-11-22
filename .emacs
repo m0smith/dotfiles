@@ -109,6 +109,18 @@
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 
 
+
+;;
+;; Randon utilites
+;; See http://www.emacswiki.org/emacs/MatthewSmith
+
+(defun dedosify () 
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (search-forward "\15" nil t)
+      (replace-match "" nil t))))
+
 ;;(load-file "/home/xubuntu/projects/cljdb/cljdb.el")
 ;;(require 'cljdb)
 
