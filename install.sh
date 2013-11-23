@@ -36,10 +36,15 @@ link_with_backup .lein
 create_dir ~/bin
 create_dir ~/projects
 create_dir ~/opt
+create_dir ~/var/reg
 create_dir ~/.emacs.d/init.d
+create_dir ~/.profile.d
 
 install_elpa
 
+if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
+    echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
+fi
 
 if [[ ! -f ~/bin/lein ]]; then
     cd ~/bin

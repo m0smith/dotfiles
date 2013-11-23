@@ -8,7 +8,7 @@ function cygwin_requires {
 	echo "Missing $1"
 	cat <<EOF
 Before running this, be sure and install the latest cygwin:
-      emacs, emacs-el, ctags, git, wget curl, openssh, zip, unzip, subversion.
+      emacs, emacs-el, ctags, git, wget curl, openssh, zip, unzip, subversion, dos2unix.
 
 Also set HOME in the computer propeties to %HOMEDRIVE%%HOMEPATH%
 
@@ -23,7 +23,7 @@ EOF
 os=`uname -o`
 if [[ "$os" = "Cygwin" ]]; then 
 
-    link_with_backup2 mswindows/.bashrc_cygwin .bashrc_os
+    link_with_backup2 mswindows/.bashrc_cygwin .profile.d/bashrc_cygwin 
 
     cygwin_requires "emacs"
     cygwin_requires "curl"
@@ -32,6 +32,7 @@ if [[ "$os" = "Cygwin" ]]; then
     cygwin_requires "zip"
     cygwin_requires "ctags"
     cygwin_requires "git"
+    cygwin_requires "dos2unix"
 
     ## Setup home as per: http://stackoverflow.com/questions/225764/safely-change-home-directory-in-cygwin/10321615#10321615
     cd /
@@ -61,7 +62,30 @@ if [[ "$os" = "Cygwin" ]]; then
 
     fi
 
+    reg=~/var/reg/emacs.reg
+    if [ ! -f "$reg" ]; then
+	set -x
+	emacs=`which emacs`
+	emacsclient=`which emacsclient`
+	e=`cygpath -w "$emacs" | sed 's/\\\\/\\\\\\\\/g'`
+	ec=`cygpath -w "$emacsclient" | sed 's/\\\\/\\\\\\\\/g'`
+	cat > $reg <<EOF
+Windows Registry Editor Version 5.00
 
+[HKEY_CLASSES_ROOT\*\shell]
+[HKEY_CLASSES_ROOT\*\shell\openwemacs]
+@="&Edit with Emacs"
+[HKEY_CLASSES_ROOT\*\shell\openwemacs\command]
+@="$ec --alternate-editor=\"$e\" -n \"%1\""
+[HKEY_CLASSES_ROOT\Directory\shell\openwemacs]
+@="Edit &with Emacs"
+[HKEY_CLASSES_ROOT\Directory\shell\openwemacs\command]
+@="$ec --alternate-editor=\"$e\" -n \"%1\""
+EOF
+
+	unix2dos $reg
+	cmd /c "%SystemRoot%\regedit.exe \s `cygpath -w $reg`"
+    fi
 
 else
     echo "Only works in Cygwin not $os"

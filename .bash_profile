@@ -5,10 +5,23 @@
 export PATH=${HOME}/bin:$PATH
 
 
-if [[ -f ~/.bashrc_os ]]; then
-    . ~/.bashrc_os
+if [[ -d ~/.profile.d ]]; then
+    for f in ~/.profile.d/* ; do
+	. $f
+    done
 fi
 
 if [[ -f ~/.profile ]]; then
     . ~/.profile
 fi
+
+function set_proxy {
+    if [ -z "$PROXY_HOST" -o -z "$PROXY_PORT" ]; then
+	echo "Both PROXY_HOST and PROXY_PORT must be set"
+	return
+    fi
+    read -s -p Password: -e p
+    local proxy="http://${USER}:$p@${PROXY_HOST}:${PROXY_PORT}"
+    export http_proxy="$proxy"
+    export https_proxy="$proxy"
+}

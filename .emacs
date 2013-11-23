@@ -47,6 +47,14 @@
 
 (package-initialize)
 
+
+;;
+;; Start the emacs server going
+;;
+
+(require 'server)
+(server-start)
+
 ;;;
 ;;; Move Text
 ;;;
@@ -79,23 +87,41 @@
 
 
 ;;
+;; ECB
+;;
+
+;;(setq stack-trace-on-error t)
+;;(add-to-list 'load-path "~/projects/ecb/")
+;;(require 'ecb)
+
+
+;;(;;semantic-load-enable-minimum-features) ;; or enable more if you wish
+
+
+;;
 ;; Malabar Mode
 ;;  https://github.com/dstu/malabar-mode
-;;
-;(setq stack-trace-on-error t)
-;(add-to-list 'load-path "~/projects/ecb/")
-;(require 'ecb)
-
 (require 'cedet)
 (require 'semantic)
 (load "semantic/loaddefs.el")
-;;(;;semantic-load-enable-minimum-features) ;; or enable more if you wish
-(semantic-mode 1)
+(semantic-mode 1);;
 (require 'malabar-mode)
 (load "malabar-util.el")
 (setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 
+
+
+;;
+;; Randon utilites
+;; See http://www.emacswiki.org/emacs/MatthewSmith
+
+(defun dedosify () 
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (search-forward "\15" nil t)
+      (replace-match "" nil t))))
 
 ;;(load-file "/home/xubuntu/projects/cljdb/cljdb.el")
 ;;(require 'cljdb)
