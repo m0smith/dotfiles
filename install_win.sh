@@ -61,12 +61,15 @@ if [[ "$os" = "Cygwin" ]]; then
         ln -s "$d"  /usr/local/bin86
 
     fi
-    set -x
-    emacs=`which emacs`
-    emacsclient=`which emacsclient`
-    e=`cygpath -w "$emacs" | sed 's/\\\\/\\\\\\\\/g'`
-    ec=`cygpath -w "$emacsclient" | sed 's/\\\\/\\\\\\\\/g'`
-    cat > /tmp/emacs.reg <<EOF
+
+    reg=~/var/reg/emacs.reg
+    if [ ! -f "$reg" ]; then
+	set -x
+	emacs=`which emacs`
+	emacsclient=`which emacsclient`
+	e=`cygpath -w "$emacs" | sed 's/\\\\/\\\\\\\\/g'`
+	ec=`cygpath -w "$emacsclient" | sed 's/\\\\/\\\\\\\\/g'`
+	cat > $reg <<EOF
 Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\*\shell]
@@ -80,10 +83,9 @@ Windows Registry Editor Version 5.00
 @="$ec --alternate-editor=\"$e\" -n \"%1\""
 EOF
 
-    unix2dos /tmp/emacs.reg
-    cd /tmp
-    regedit /s emacs.reg
-
+	unix2dos $reg
+	cmd /c "%SystemRoot%\regedit.exe \s `cygpath -w $reg`"
+    fi
 
 else
     echo "Only works in Cygwin not $os"
