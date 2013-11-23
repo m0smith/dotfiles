@@ -2,6 +2,10 @@
 # From https://github.com/stuartsierra/dotfiles
 # 
 
+function add_to_path {
+    export PATH=${PATH}:$1
+}
+
 function backup {
     local file="$1"
     if [[ -L "$file" ]]; then

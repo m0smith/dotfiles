@@ -84,7 +84,7 @@ Windows Registry Editor Version 5.00
 EOF
 
 	unix2dos $reg
-	cmd /c "%SystemRoot%\regedit.exe \s `cygpath -w $reg`"
+	cmd /c "%SystemRoot%\regedit.exe /s `cygpath -w $reg`"
     fi
 
 else
