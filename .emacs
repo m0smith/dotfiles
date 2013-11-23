@@ -82,9 +82,9 @@
 ;; Malabar Mode
 ;;  https://github.com/dstu/malabar-mode
 ;;
-(setq stack-trace-on-error t)
-(add-to-list 'load-path "~/projects/ecb/")
-(require 'ecb)
+;(setq stack-trace-on-error t)
+;(add-to-list 'load-path "~/projects/ecb/")
+;(require 'ecb)
 
 (require 'cedet)
 (require 'semantic)
