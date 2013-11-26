@@ -47,9 +47,6 @@ fi
 
 install_elpa
 
-for f in bin/*; do
-    echo link_with_backup2 $f $f
-done
 
 if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
     echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
@@ -102,6 +99,12 @@ if [[ ! -d ~/projects/cljdb ]]; then
     git clone https://github.com/m0smith/cljdb.git
 fi
 
+
+for f in bin/*; do
+    echo link_with_backup2 $f $f
+done
+
+chmod +x ~/bin/*
 
 
 clone_malabar_mode
