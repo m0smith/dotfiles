@@ -103,7 +103,7 @@ function install_lein {
 	wget https://raw.github.com/kumarshantanu/lein-exec/master/lein-exec
 	chmod +x lein-exec
     fi
-fi
+}
 
 function install_mvn {
     if [[ ! -f ~/bin/mvn ]]; then
