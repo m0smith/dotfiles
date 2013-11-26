@@ -1,0 +1,35 @@
+#!/usr/bin/bash
+
+
+# $1 = Assignment name
+rm -rf /tmp/$1.zip /tmp/$1
+cp ~/Downloads/submissions.zip /tmp/$1.zip
+mkdir /tmp/$1
+cd /tmp/$1
+unzip /tmp/$1.zip
+
+
+for f in *
+do
+    cd /tmp/$1
+    d=`echo  $f | awk -F_ '{print $1}'`
+    ff=`echo  $f | awk -F_ '{print $4}'`
+    mkdir $d
+    pwd
+    mv $f $d/$ff
+    cd $d
+    
+    pwd
+    ls
+    z=`ls | awk '/.zip$/'`
+    if [ "$z" = "$ff" ]; then
+	unzip $ff 
+    fi
+    mkdir classes
+    find . -name \*.java | xargs javac -d classes
+    cd classes
+    pp=`find * -name \*.class | sed 's/[/]/./g' `
+    p=`basename $pp .class`
+    echo $p
+    java -cp . $p | tee ../output.log
+done
