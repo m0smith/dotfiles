@@ -18,10 +18,6 @@
 (add-hook 'nrepl-connected-hook 'm0clj-cider-hook)
 
 
-(defun m0-set-frame-height   (n)
-  "For some reason I cannot resize a window in some configurations, mostly cygwin X11"
-  (interactive "nFrame Height:")
-  (set-frame-height (selected-frame) n))
 
 ;; Recursively generate tags for all *.clj files, 
 ;; creating tags for def* and namespaces

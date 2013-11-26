@@ -21,7 +21,10 @@
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file)
 
-
+;;
+;; Load general purpose functions
+;;
+(load "m0")
 
 ;;
 ;; Keys 
