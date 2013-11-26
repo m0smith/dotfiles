@@ -87,6 +87,8 @@ function install_dotfile_path {
     if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
 	echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
     fi
+    chmod +x ~/bin/*
+    chmod +x $DOTFILES/bin/*
 }
 
 function install_lein {
@@ -139,10 +141,6 @@ function install_cljdb {
     fi
 }
 
-function link_to_bin {
-    for f in bin/*; do
-	echo link_with_backup2 $f $f
-    done
 
-    chmod +x ~/bin/*
-}
+
+
