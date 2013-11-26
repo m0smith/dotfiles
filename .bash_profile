@@ -15,6 +15,8 @@ if [[ -f ~/.profile ]]; then
     . ~/.profile
 fi
 
+alias e=edit
+
 function set_proxy {
     if [ -z "$PROXY_HOST" -o -z "$PROXY_PORT" ]; then
 	echo "Both PROXY_HOST and PROXY_PORT must be set"
@@ -24,4 +26,5 @@ function set_proxy {
     local proxy="http://${USER}:$p@${PROXY_HOST}:${PROXY_PORT}"
     export http_proxy="$proxy"
     export https_proxy="$proxy"
+    export ftp_proxy="$proxy"
 }
