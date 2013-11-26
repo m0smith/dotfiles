@@ -1,0 +1,6 @@
+f=`which $1 2>/dev/null`
+if [ -n "$f" ]; then
+    edit "$f"
+else
+    echo "$f is not found on the PATH"
+fi
