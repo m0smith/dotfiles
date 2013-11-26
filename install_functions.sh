@@ -83,3 +83,66 @@ function install_malabar_mode {
     fi
 }
 
+function install_dotfile_path {
+    if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
+	echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
+    fi
+}
+
+function install_lein {
+    if [[ ! -f ~/bin/lein ]]; then
+	cd ~/bin
+	wget https://raw.github.com/technomancy/leiningen/stable/bin/lein
+	chmod +x lein
+    fi
+
+    if [[ ! -f ~/bin/lein-exec ]]; then
+	cd ~/bin
+	wget https://raw.github.com/kumarshantanu/lein-exec/master/lein-exec
+	chmod +x lein-exec
+    fi
+fi
+
+function install_mvn {
+    if [[ ! -f ~/bin/mvn ]]; then
+	cd /tmp
+	wget http://psg.mtu.edu/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip
+	cd ~/opt
+	unzip -a /tmp/apache-maven-3.0.5-bin.zip
+	rm /tmp/apache-maven-3.0.5-bin.zip
+	cd ~/bin
+	ln -s ~/opt/apache-maven-3.0.5/bin/mvn mvn
+	chmod +x mvn
+	echo "Maven 3.0.5 installed"
+    fi
+}
+function install_ant {
+    if [[ ! -f ~/bin/ant ]]; then
+	pname=apache-ant-1.9.2
+	zname=${pname}-bin.zip
+	cd /tmp
+	wget http://apache.mirrors.tds.net/ant/binaries/$zname
+	cd ~/opt
+	unzip -q /tmp/$zname
+	rm /tmp/$zname
+	cd ~/bin
+	ln -s ~/opt/$pname/bin/ant ant
+	chmod +x ant
+	echo "Ant 1.9.2 installed"
+    fi
+}
+
+function install_cljdb {
+    if [[ ! -d ~/projects/cljdb ]]; then
+	cd ~/projects
+	git clone https://github.com/m0smith/cljdb.git
+    fi
+}
+
+function link_to_bin {
+    for f in bin/*; do
+	echo link_with_backup2 $f $f
+    done
+
+    chmod +x ~/bin/*
+}
