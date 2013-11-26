@@ -50,6 +50,7 @@ install_mvn
 install_ant
 install_cljdb
 
+. ~/.profile_bash
 
 clone_malabar_mode
 install_malabar_mode
