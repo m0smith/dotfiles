@@ -21,11 +21,13 @@
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file)
 
+
+
 ;;
 ;; Keys 
 ;;
 (global-set-key [f5] (quote revert-buffer))
-
+(global-set-key [f12] 'm0-set-frame-height)
 ;;
 ;; Colors
 ;;
