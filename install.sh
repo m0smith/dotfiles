@@ -50,7 +50,6 @@ install_mvn
 install_ant
 install_cljdb
 
-link_to_bin
 
 clone_malabar_mode
 install_malabar_mode
