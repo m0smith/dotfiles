@@ -18,8 +18,6 @@ link_with_backup .gitignore
 link_with_backup .gitconfig
 link_with_backup .lein
 
-
-
 create_dir ~/bin
 create_dir ~/projects
 create_dir ~/opt
@@ -44,68 +42,15 @@ else
 fi
 
 
-
 install_elpa
 
+install_dotfile_path
+install_lein
+install_mvn
+install_ant
+install_cljdb
 
-if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
-    echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
-fi
-
-if [[ ! -f ~/bin/lein ]]; then
-    cd ~/bin
-    wget https://raw.github.com/technomancy/leiningen/stable/bin/lein
-    chmod +x lein
-fi
-
-if [[ ! -f ~/bin/lein-exec ]]; then
-    cd ~/bin
-    wget https://raw.github.com/kumarshantanu/lein-exec/master/lein-exec
-    chmod +x lein-exec
-
-fi
-
-if [[ ! -f ~/bin/mvn ]]; then
-    cd /tmp
-    wget http://psg.mtu.edu/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip
-    cd ~/opt
-    unzip -a /tmp/apache-maven-3.0.5-bin.zip
-    rm /tmp/apache-maven-3.0.5-bin.zip
-    cd ~/bin
-    ln -s ~/opt/apache-maven-3.0.5/bin/mvn mvn
-    chmod +x mvn
-    echo "Maven installed"
-fi
-
-if [[ ! -f ~/bin/ant ]]; then
-    pname=apache-ant-1.9.2
-    zname=${pname}-bin.zip
-    cd /tmp
-    wget http://apache.mirrors.tds.net/ant/binaries/$zname
-    cd ~/opt
-    unzip -q /tmp/$zname
-    rm /tmp/$zname
-    cd ~/bin
-    ln -s ~/opt/$pname/bin/ant ant
-    chmod +x ant
-    echo "Ant installed"
-fi
-
-
-
-
-if [[ ! -d ~/projects/cljdb ]]; then
-    cd ~/projects
-    git clone https://github.com/m0smith/cljdb.git
-fi
-
-
-for f in bin/*; do
-    echo link_with_backup2 $f $f
-done
-
-chmod +x ~/bin/*
-
+link_to_bin
 
 clone_malabar_mode
 install_malabar_mode
