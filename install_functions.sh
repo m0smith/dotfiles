@@ -87,8 +87,7 @@ function install_dotfile_path {
     if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
 	echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
     fi
-    chmod +x ~/bin/*
-    chmod +x $DOTFILES/bin/*
+    chmod +x $DOTFILES/bin/* 
 }
 
 function install_lein {
