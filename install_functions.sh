@@ -78,8 +78,8 @@ function install_malabar_mode {
 	     echo "(setq malabar-util-groovy-file-filter 'malabar-util-reverse-slash)"  >> ~/.emacs.d/init.d/malabar-mode-cygwin.el
 	 fi
 
-	cd ~/.emacs.d/$mver
-	find ./ -name '*.el' | xargs emacs -nw -batch -f batch-byte-compile
+	cd ~/.emacs.d/$mver/lisp
+	emacs -batch -L . -f batch-byte-compile *.el
     fi
 }
 
