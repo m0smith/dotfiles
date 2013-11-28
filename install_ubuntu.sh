@@ -1,7 +1,7 @@
 ##
 ## Setup OS specific bash options
 
-link_with_backup2 ubuntu/.bashrc_ubuntu .bashrc_os
+link_with_backup2 ubuntu/.bashrc_ubuntu .profile.d/bashrc_ubuntu
 
 #
 # Useful and necessary
