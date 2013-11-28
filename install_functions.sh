@@ -78,8 +78,8 @@ function install_malabar_mode {
 	     echo "(setq malabar-util-groovy-file-filter 'malabar-util-reverse-slash)"  >> ~/.emacs.d/init.d/malabar-mode-cygwin.el
 	 fi
 
-	cd ~/.emacs.d/$mver
-	find ./ -name '*.el' | xargs emacs -nw -batch -f batch-byte-compile
+	cd ~/.emacs.d/$mver/lisp
+	emacs -batch -L . -f batch-byte-compile *.el
     fi
 }
 
@@ -87,8 +87,7 @@ function install_dotfile_path {
     if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
 	echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
     fi
-    chmod +x ~/bin/*
-    chmod +x $DOTFILES/bin/*
+    chmod +x $DOTFILES/bin/* 
 }
 
 function install_lein {
