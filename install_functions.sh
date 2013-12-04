@@ -64,7 +64,7 @@ function install_malabar_mode {
 	    echo `cygpath -w $w`" -nw %* " > ~/projects/malabar-mode/emacs.bat
 	fi
 	cd ~/projects/malabar-mode
-	mvn -Dmaven.test.skip=true clean package
+	mvn  clean package
 	p=`pwd`
 	cd ~/.emacs.d/
 	rm -rf malabar*
