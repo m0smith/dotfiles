@@ -1,14 +1,16 @@
 ##
 ## Setup OS specific bash options
 
-link_with_backup2 ubuntu/.bashrc_ubuntu .bashrc_os
+link_with_backup2 ubuntu/.bashrc_ubuntu .profile.d/bashrc_ubuntu
 
 #
 # Useful and necessary
 #
 
 
-sudo apt-get install emacs24 emacs24-el git ssh xterm wget software-properties-common x11-apps unzip
+sudo apt-get install emacs24 emacs24-el git ssh xterm wget software-properties-common x11-apps unzip \
+                     cvs subversion
+sudo apt-get autoremove
 
 #
 # Java

@@ -3,7 +3,7 @@
 ## the install scripts
 
 export PATH=${HOME}/bin:$PATH
-
+export CVS_RSH=ssh
 
 if [[ -d ~/.profile.d ]]; then
     for f in ~/.profile.d/* ; do
