@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+mvn -o help:effective-pom > target/deppom.xml && ls -l target/deppom.xml
