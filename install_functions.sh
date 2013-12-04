@@ -48,7 +48,8 @@ function clone_malabar_mode {
 	cd ~/projects
 	## git clone https://github.com/dstu/malabar-mode.git
 	## git clone https://github.com/blackd/malabar-mode.git
-	git clone https://github.com/m0smith/malabar-mode.git --branch buzztaiki
+	## git clone https://github.com/m0smith/malabar-mode.git --branch buzztaiki
+	git clone https://github.com/m0smith/malabar-mode.git
     else
 	cd ~/projects/malabar-mode
 	git pull
