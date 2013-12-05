@@ -141,6 +141,15 @@ function install_cljdb {
     fi
 }
 
+function create_gpg_keys {
+    p=`gpg --list-keys | grep pub`
+    if [ ! $p ]; then
+	gpg --gen-key
+    fi
+    gpg --list-keys
+    k=`gpg --list-keys | awk '/^pub/ { split( $2, a , "/"); print a[2];}'`
+    gpg --keyserver hkp://pool.sks-keyservers.net --send-keys $k
+}
 
 
 
