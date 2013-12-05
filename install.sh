@@ -54,5 +54,7 @@ chmod +x ~/bin/*
 
 . ~/.bash_profile
 
+create_gpg_keys
+
 clone_malabar_mode
 install_malabar_mode
