@@ -35,8 +35,8 @@ if [[ "$os" = "Cygwin" ]]; then
     cygwin_requires "ctags"
     cygwin_requires "git"
     cygwin_requires "dos2unix"
-    cygwin_requires "gnupg"
-    cygwin_requires "subversion"
+    cygwin_requires "gpg"
+    cygwin_requires "svn"
     cygwin_requires "cvs"
 
     ## Setup home as per: http://stackoverflow.com/questions/225764/safely-change-home-directory-in-cygwin/10321615#10321615

@@ -164,7 +164,7 @@ function install_cljdb {
 
 function create_gpg_keys {
     p=`gpg --list-keys | grep pub`
-    if [ ! $p ]; then
+    if [ "${p}x" = "x" ]; then
 	gpg --gen-key
     fi
     gpg --list-keys
