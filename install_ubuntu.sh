@@ -3,6 +3,8 @@
 
 link_with_backup2 ubuntu/.bashrc_ubuntu .profile.d/bashrc_ubuntu
 
+export JAD_EXE=jad
+
 #
 # Useful and necessary
 #

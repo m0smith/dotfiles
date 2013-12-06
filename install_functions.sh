@@ -105,6 +105,21 @@ function install_lein {
     fi
 }
 
+##
+## install_jad
+##   Creates a link to the right jad executable for this environment
+##    Requires JAD_EXE be set to either jad or jad.exe for linux and windows
+##
+function install_jad {
+    if [[ ! -f ~/bin/${JAD_EXE} ]]; then
+	link_with_backup2 opt/jad/${JAD_EXE} bin/${JAD_EXE}
+    fi
+}
+
+##
+## install_mvn
+##   Dowload, extract and add maven to the PATH
+
 function install_mvn {
     if [[ ! -f ~/bin/mvn ]]; then
 	cd /tmp
@@ -118,6 +133,11 @@ function install_mvn {
 	echo "Maven 3.0.5 installed"
     fi
 }
+
+##
+## install_ant
+##   Dowload, extract and add ant to the PATH
+
 function install_ant {
     if [[ ! -f ~/bin/ant ]]; then
 	pname=apache-ant-1.9.2

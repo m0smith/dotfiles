@@ -48,6 +48,7 @@ install_dotfile_path
 install_lein
 install_mvn
 install_ant
+install_jad
 install_cljdb
 
 chmod +x ~/bin/* 

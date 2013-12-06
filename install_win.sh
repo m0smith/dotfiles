@@ -25,6 +25,8 @@ if [[ "$os" = "Cygwin" ]]; then
 
     link_with_backup2 mswindows/.bashrc_cygwin .profile.d/bashrc_cygwin 
 
+    export JAD_EXE=jad.exe
+
     cygwin_requires "emacs"
     cygwin_requires "curl"
     cygwin_requires "wget"
