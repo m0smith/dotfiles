@@ -113,6 +113,7 @@ function install_lein {
 function install_jad {
     if [[ ! -f ~/bin/${JAD_EXE} ]]; then
 	link_with_backup2 opt/jad/${JAD_EXE} bin/${JAD_EXE}
+	chmod +x ~/bin/${JAD_EXE}
     fi
 }
 
