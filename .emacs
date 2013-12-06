@@ -117,7 +117,7 @@
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 (add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
 
-
+(load "jdc")
 
 ;;
 ;; Randon utilites
