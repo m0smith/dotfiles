@@ -19,15 +19,16 @@ unzip /tmp/$1.zip
 
 for f in *
 do
+    
 
     echo START $f
     cd /tmp/$1
+    test -f $f || continue
     d=`echo  $f | awk -F_ '{print $1}'`
-    pwd
     for fil in `ls ${d}_[0-9]*_[0-9]*_*`; do
 	id=`echo  $fil | awk -F_ '{print $2 "_" $3}'`
 	ff=`echo  $fil | awk -F_ '{print $4}'`
-	echo "ID=$id"
+	#echo "ID=$id"
 	echo "Moving $fil to $d/$ff"
 	test -d $d || mkdir $d
 	mv $fil $d/$ff
@@ -35,8 +36,6 @@ do
 
     cd $d
     
-    pwd
-    ls
 
     for z in `find . -name  \*.zip`; do
 	unzip $z
@@ -47,24 +46,27 @@ do
     emacsclient -n `find . -name \*.java ` &
 
     cd classes
-    
 
-    pp=`find * -name \*.class | sed 's/[/]/./g' `
+    pp=`find * -name \*.class`
     if [ "${pp}x" = "x" ]; then
 	echo "ERROR: Failed to compile"
 
     else
-	main_class=""
+	main_class_file=""
 	for clazz in $pp; do
 	    jp=`javap $clazz | awk '/main/'`
 	    if [ "${jp}x" != "x" ]; then
-		main_class=$clazz
+		main_class_file=$clazz
 	    fi
 	done
-	
+	main_class=`echo $main_class_file | sed 's/[/]/./g'`
 	p=`basename $main_class .class`
-	echo $p
+	echo "Start execution of $p for $d"
+	echo
 	java -cp . $p | tee ../output.log	    
+	echo
+	echo "Complete execution of $p for $d"
+
     fi
 
     echo 
