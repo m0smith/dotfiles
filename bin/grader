@@ -19,13 +19,14 @@ unzip /tmp/$1.zip
 
 for f in *
 do
-    
-
-    echo START $f
+    echo START "$f"
     cd /tmp/$1
-    test -f $f || continue
-    d=`echo  $f | awk -F_ '{print $1}'`
-    for fil in `ls ${d}_[0-9]*_[0-9]*_*`; do
+    test -f "$f" || continue
+    set -x
+    SAVEIFS=$IFS
+    IFS=$(echo -en "\n\b")
+    d=`echo  "$f" | awk -F_ '{print $1}'`
+    for fil in `ls  ${d}_[0-9]*_[0-9]*_*`; do
 	id=`echo  $fil | awk -F_ '{print $2 "_" $3}'`
 	ff=`echo  $fil | awk -F_ '{print $4}'`
 	#echo "ID=$id"
@@ -33,7 +34,8 @@ do
 	test -d $d || mkdir $d
 	mv $fil $d/$ff
     done
-
+    IFs=$SAVEIFS
+    set +x
     cd $d
     
 
