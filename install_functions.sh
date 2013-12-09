@@ -52,7 +52,7 @@ function clone_malabar_mode {
 	git clone https://github.com/m0smith/malabar-mode.git
     else
 	cd ~/projects/malabar-mode
-	git pull
+	#git pull
     fi
 }
 
