@@ -22,7 +22,7 @@ do
     echo START "$f"
     cd /tmp/$1
     test -f "$f" || continue
-    set -x
+
     SAVEIFS=$IFS
     IFS=$(echo -en "\n\b")
     d=`echo  "$f" | awk -F_ '{print $1}'`
@@ -35,7 +35,7 @@ do
 	mv $fil $d/$ff
     done
     IFs=$SAVEIFS
-    set +x
+
     cd $d
     
 
@@ -44,7 +44,7 @@ do
     done
 
     test -d classes || mkdir classes
-    find . -name \*.java | xargs javac -d classes
+    find . -name \*.java | grep -v __MACOSX | xargs javac -d classes
     emacsclient -n `find . -name \*.java ` &
 
     cd classes
