@@ -118,6 +118,7 @@
 (add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
 
 (load "jdc")
+(yas-global-mode 1)
 
 ;;
 ;; Randon utilites
