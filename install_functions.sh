@@ -58,7 +58,7 @@ function clone_malabar_mode {
 
 
 function install_malabar_mode {
-    if [[ -d ~/projects/malabar-mode ]]; then
+    if [[ -d $HOME/projects/malabar-mode ]]; then
 	if [[ "$os" = "Cygwin" ]]; then 
 	    w=`which emacs`
 	    echo `cygpath -w $w`" -nw %* " > ~/projects/malabar-mode/emacs.bat
