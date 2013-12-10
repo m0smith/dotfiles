@@ -67,9 +67,10 @@ if [[ "$os" = "Cygwin" ]]; then
 
     fi
 
-    reg=~/var/reg/emacs.reg
+    reg=$HOME/var/reg/emacs.reg
     if [ ! -f "$reg" ]; then
-	set -x
+	regdir=`dirname $reg`
+	test -d $regdir || mkdir -p $regdir
 	emacs=`which emacs`
 	emacsclient=`which emacsclient`
 	e=`cygpath -w "$emacs" | sed 's/\\\\/\\\\\\\\/g'`
