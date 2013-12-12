@@ -23,4 +23,5 @@
 (package-install 'move-text)
 (package-install 'web-mode)
 (package-install 'cider-tracing)
+(package-install 'yasnippet)
 
