@@ -111,14 +111,18 @@
 (load "semantic/loaddefs.el")
 (semantic-mode 1);;
 (require 'malabar-mode)
-(load "malabar-util.el")
+;(load "malabar-util.el")
 
-(setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
+;(setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
-(add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
+;(add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
 
-(load "jdc")
-(yas-global-mode 1)
+;;;
+;;; JDC
+;;;
+
+;(load "jdc")
+;(yas-global-mode 1)
 
 ;;
 ;; Randon utilites
