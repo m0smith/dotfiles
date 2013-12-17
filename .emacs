@@ -114,10 +114,14 @@
 
 ;;(setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
-(add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
+;(add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
 
-(load "jdc")
-(yas-global-mode 1)
+;;;
+;;; JDC
+;;;
+
+;(load "jdc")
+;(yas-global-mode 1)
 
 ;;
 ;; Randon utilites
