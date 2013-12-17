@@ -24,4 +24,6 @@
 (package-install 'web-mode)
 (package-install 'cider-tracing)
 (package-install 'yasnippet)
+(package-install 'malabar-mode)
+
 
