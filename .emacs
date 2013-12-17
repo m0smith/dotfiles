@@ -80,7 +80,6 @@
 ;;
 ;; WEB MODE http://web-mode.org/
 ;;
-
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -111,9 +110,9 @@
 (load "semantic/loaddefs.el")
 (semantic-mode 1);;
 (require 'malabar-mode)
-(load "malabar-util.el")
+;;(load "malabar-util.el")
 
-(setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
+;;(setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 (add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
 
