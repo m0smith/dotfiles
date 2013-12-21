@@ -59,5 +59,5 @@ chmod +x ~/bin/*
 
 
 
-clone_malabar_mode
-install_malabar_mode
+#clone_malabar_mode
+#install_malabar_mode
