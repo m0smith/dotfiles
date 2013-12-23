@@ -56,3 +56,4 @@ create_gpg_keys
 chmod +x ~/bin/* 
 
 . ~/.bash_profile
+
