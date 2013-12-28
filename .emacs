@@ -93,6 +93,8 @@
 ;;
 ;; ECB
 ;;
+;; See http://stackoverflow.com/questions/20129637/emacs-24-3-1-cedet-2-0-built-in-and-ecb-20131116-1319-errors-during-the-layou/20797568?noredirect=1#20797568
+(setq ecb-examples-bufferinfo-buffer-name nil)
 
 ;;(setq stack-trace-on-error t)
 ;;(add-to-list 'load-path "~/projects/ecb/")
