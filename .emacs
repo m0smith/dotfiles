@@ -114,6 +114,11 @@
 (require 'malabar-mode)
 ;;(load "malabar-util.el")
 
+(defun m0java-mode-hook ()
+  (setq indent-tabs-mode nil))
+
+(add-hook 'java-mode-hook 'm0java-mode-hook)
+
 ;;(setq malabar-groovy-lib-dir (format "%s/lib" malabar-dir))
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 ;(add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
