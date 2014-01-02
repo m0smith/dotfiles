@@ -60,6 +60,14 @@
 (require 'server)
 (server-start)
 
+
+;;;
+;;; DIRED Customizations
+;;;
+;; See http://stackoverflow.com/questions/1431351/how-do-i-uncompress-unzip-within-emacs
+(eval-after-load "dired-aux"
+   '(add-to-list 'dired-compress-file-suffixes 
+                 '("\\.zip\\'" ".zip" "unzip")))
 ;;;
 ;;; Move Text
 ;;;
