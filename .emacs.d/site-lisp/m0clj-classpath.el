@@ -131,15 +131,14 @@
   (interactive)
    (message (concat "current line ID is: " (tabulated-list-get-id))))
 
-(defun m0clj-classpath-which ()
+(defun m0clj-classpath-which-from-table ()
   (interactive)
   (let ((class-name (elt (tabulated-list-get-entry) 1)))
     (message (format "%s from %s" class-name (m0clj-classpath-which class-name)))))
 
 (defun m0clj-classpath-find-file ()
   (interactive)
-  (let ((type (elt (tabulated-list-get-entry) 0))
-	(file-name (elt (tabulated-list-get-entry) 2)))
+  (let ((file-name (elt (tabulated-list-get-entry) 2)))
     (find-file file-name)))
 
 (defun m0clj-classpath-locate ()
@@ -221,7 +220,7 @@
     (set-keymap-parent map tabulated-list-mode-map)
     (define-key map "=" 'print-current-line-id)
     (define-key map "l" 'm0clj-classpath-locate)
-    (define-key map "w" 'm0clj-classpath-which)
+    (define-key map "w" 'm0clj-classpath-which-from-table)
     (define-key map "P" 'm0clj-classpath-kill-ring-save-package)
     (define-key map "c" 'm0clj-classpath-kill-ring-save-class)
     (define-key map "C" 'm0clj-classpath-kill-ring-save-full-class)
@@ -365,9 +364,5 @@
   (setq tabulated-list-entries (m0clj-classpath-locations-of resource-key))
   (tabulated-list-print t))
 
-(defun m0clj-classpath-locate ()
-  (interactive)
-  (let ((resource-key  (tabulated-list-get-id)))
-   (m0clj-classpath-location-mode resource-key)))
 
 (provide 'm0clj-classpath)
