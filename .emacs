@@ -26,7 +26,7 @@
 ;; Load general purpose functions
 ;;
 (load "m0")
-(blink-cursor-mode 'off)
+(blink-cursor-mode -1)
 ;;
 ;; Keys 
 ;;
