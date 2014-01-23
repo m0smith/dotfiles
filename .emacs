@@ -76,7 +76,7 @@
 ;;;
 ;;; DIRED Customizations
 ;;;
-;; See http://stackoverflow.com/questions/1431351/how-do-i-uncompress-unzip-within-emacs
+;;     See http://stackoverflow.com/questions/1431351/how-do-i-uncompress-unzip-within-emacs
 (eval-after-load "dired-aux"
    '(add-to-list 'dired-compress-file-suffixes 
                  '("\\.zip\\'" ".zip" "unzip")))
@@ -104,7 +104,8 @@
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode-bootstrap))
 
 ;;
-;; WEB MODE http://web-mode.org/
+;; WEB MODE 
+;;     http://web-mode.org/
 ;;
 (eval-after-load 'package
   '(progn
@@ -121,13 +122,13 @@
 ;;
 ;; ECB
 ;;
-;; See http://stackoverflow.com/questions/20129637/emacs-24-3-1-cedet-2-0-built-in-and-ecb-20131116-1319-errors-during-the-layou/20797568?noredirect=1#20797568
+;;     See http://stackoverflow.com/questions/20129637/emacs-24-3-1-cedet-2-0-built-in-and-ecb-20131116-1319-errors-during-the-layou/20797568?noredirect=1#20797568
 (setq ecb-examples-bufferinfo-buffer-name nil)
 
 
 ;;
 ;; Malabar Mode
-;;  https://github.com/dstu/malabar-mode
+;;    https://github.com/dstu/malabar-mode
 (defun malabar-mode-bootstrap ()
   (require 'cedet)
   (require 'semantic)
@@ -145,6 +146,14 @@
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode-bootstrap))
 ;(add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
 
+
+;;;
+;;; maven-pom-mode
+;;;     https://github.com/m0smith/maven-pom-mode
+;;;
+(add-to-list 'load-path "~/projects/maven-pom-mode")
+(load "maven-pom-mode")
+
 ;;;
 ;;; JDC
 ;;;
@@ -154,18 +163,20 @@
 
 ;;;
 ;;; Markdown Mode
-;;; http://jblevins.org/projects/markdown-mode/
+;;;     http://jblevins.org/projects/markdown-mode/
 ;;;
 
 (autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(autoload 'gfm-mode "gfm-mode"
    "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
 
 
 ;;
-;; Randon utilites
-;; See http://www.emacswiki.org/emacs/MatthewSmith
+;; Random utilites
+;;      See http://www.emacswiki.org/emacs/MatthewSmith
 
 (defun dedosify () 
   (interactive)
