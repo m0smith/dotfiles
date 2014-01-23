@@ -151,9 +151,11 @@
 ;;; maven-pom-mode
 ;;;     https://github.com/m0smith/maven-pom-mode
 ;;;
-(add-to-list 'load-path "~/projects/maven-pom-mode")
-(load "maven-pom-mode")
-
+(eval-after-load 'nxml-mode
+  '(progn
+     (add-to-list 'load-path "~/projects/maven-pom-mode")
+     (load "maven-pom-mode")))
+     
 ;;;
 ;;; JDC
 ;;;
