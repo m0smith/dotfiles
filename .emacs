@@ -152,6 +152,16 @@
 ;(load "jdc")
 ;(yas-global-mode 1)
 
+;;;
+;;; Markdown Mode
+;;; http://jblevins.org/projects/markdown-mode/
+;;;
+
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
 ;;
 ;; Randon utilites
 ;; See http://www.emacswiki.org/emacs/MatthewSmith
