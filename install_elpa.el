@@ -27,5 +27,6 @@
 (package-install 'malabar-mode)
 (package-install 'ecb)
 (package-install 'flycheck)
+(package-install 'markdown-mode)
 
 
