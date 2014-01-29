@@ -135,7 +135,10 @@
   (load "semantic/loaddefs.el")
   (semantic-mode 1);;
   (require 'malabar-mode)
-  (malabar-mode))
+  (load "malabar-flycheck")
+  
+  (malabar-mode)
+  (flycheck-mode))
 ;;(load "malabar-util.el")
 
 (defun m0java-mode-hook ()
