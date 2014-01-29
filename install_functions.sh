@@ -150,6 +150,13 @@ function install_cljdb {
     fi
 }
 
+function install_maven_pom_mode {
+    if [[ ! -d ~/projects/maven-pom-mode ]]; then
+	cd ~/projects
+	git clone https://github.com/m0smith/maven-pom-mode.git
+    fi
+}
+
 function create_gpg_keys {
     which gpg
     gpg --list-keys

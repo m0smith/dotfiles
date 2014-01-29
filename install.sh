@@ -50,6 +50,7 @@ install_mvn
 install_ant
 install_jad
 install_cljdb
+install_maven_pom_mode
 
 create_gpg_keys
 
