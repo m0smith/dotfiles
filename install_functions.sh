@@ -105,21 +105,39 @@ function install_jad {
     fi
 }
 
+## install_mvn_version
+##    Download, extract and add a version of maven to the path
+## $1 = URL to maven release
+## $2 = MAven verion number
+
+function install_mvn_version {
+    mtdir=/tmp/$2.$$
+    mkdir -p "$mtdir"
+    cd "$mtdir"
+    wget "$1"
+    z=`ls *.zip`
+    cd ~/opt
+    unzip -a "$mtdir/$z"
+    rm -rf "$mtdir"
+    cd ~/bin
+    ln -s ~/opt/apache-maven-$2/bin/mvn mvn-$2
+    chmod +x mvn*
+}
+
 ##
 ## install_mvn
-##   Dowload, extract and add maven to the PATH
+##   Install version 3.0.5 and 3.1.1 of maven with 3.0.5 bein the active one
 
 function install_mvn {
     if [[ ! -f ~/bin/mvn ]]; then
-	cd /tmp
-	wget http://psg.mtu.edu/pub/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip
-	cd ~/opt
-	unzip -a /tmp/apache-maven-3.0.5-bin.zip
-	rm /tmp/apache-maven-3.0.5-bin.zip
-	cd ~/bin
-	ln -s ~/opt/apache-maven-3.0.5/bin/mvn mvn
-	chmod +x mvn
-	echo "Maven 3.0.5 installed"
+	mavendist=http://psg.mtu.edu/pub/apache/maven
+	zip305=$mavendist/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip 
+	zip311=$mavendist/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.zip 
+	install_mvn_version $zip305 3.0.5
+	install_mvn_version $zip311 3.1.1
+	ln -s mvn-3.0.5 mvn
+	chmod +x mvn*
+	echo "Maven 3.0.5 and 3.1.1 installed with 3.0.5 active"
     fi
 }
 
