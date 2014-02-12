@@ -1,0 +1,9 @@
+#!/usr/bin/bash -x
+
+# Copy to a temp location and then mv to final location
+
+test -d ${PRJ_DEPLOY_TEMP_DIR} || mkdir -p ${PRJ_DEPLOY_TEMP_DIR}
+
+fname=`basename $2`
+cp -v "$2" ${PRJ_DEPLOY_TEMP_DIR}
+mv -v ${PRJ_DEPLOY_TEMP_DIR}/$fname ${PRJ_DEPLOY_DIR}
