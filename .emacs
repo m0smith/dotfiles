@@ -127,6 +127,17 @@
 
 
 ;;
+;; JAVA
+;;
+
+(defun m0java-mode-hook ()
+  (setq indent-tabs-mode nil))
+
+(add-hook 'java-mode-hook 'm0java-mode-hook)
+
+(add-to-list 'auto-mode-alist '("\\.groovy\\'" . java-mode))
+
+;;
 ;; Malabar Mode
 ;;    https://github.com/dstu/malabar-mode
 (defun malabar-mode-bootstrap ()
@@ -141,13 +152,29 @@
   (flycheck-mode))
 ;;(load "malabar-util.el")
 
-(defun m0java-mode-hook ()
-  (setq indent-tabs-mode nil))
 
-(add-hook 'java-mode-hook 'm0java-mode-hook)
+;; Auto-populate an empty java file
+(add-hook 'malabar-mode-hook 
+	  '(lambda ()
+	     (when (= 0 (buffer-size))
+	       (malabar-codegen-insert-class-template))))
 
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode-bootstrap))
-;(add-to-list 'auto-mode-alist '("\\.groovy\\'" . malabar-mode))
+
+
+;;;
+;;; Malabar workspace definition
+;;;
+
+(defun add-to-tags-table-list (dir)
+  (interactive "DDirectory:")
+  (if (file-exists-p dir)
+    (dolist (file (directory-files dir t))
+      (if (file-exists-p (expand-file-name (concat file "/TAGS")))
+	  (add-to-list 'tags-table-list file)))))
+
+(add-to-tags-table-list "~/workspace")
+(add-to-tags-table-list "~/projects")
 
 
 ;;;
@@ -157,6 +184,14 @@
 
 (add-to-list 'load-path "~/projects/maven-pom-mode")
 (load "maven-pom-mode")
+
+
+;;;
+;;; jdibug
+;;; https://code.google.com/p/jdibug/
+;;;  BROKEN
+;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/jdibug-0.5"))
+;;(require 'jdibug)
      
 ;;;
 ;;; JDC
