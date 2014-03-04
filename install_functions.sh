@@ -43,6 +43,13 @@ function create_dir {
     fi
 }
 
+function install_jdibug {
+    cd /tmp
+    wget http://jdibug.googlecode.com/files/jdibug-0.5.tar.bz2
+    cd ~/.emacs.d
+    tar jxvf /tmp/jdibug-0.5.tar.bz2
+    rm /tmp/jdibug-0.5.tar.bz2
+}
 
 
 function install_malabar_mode {
@@ -75,6 +82,7 @@ function install_malabar_mode {
 function install_dotfile_path {
     if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
 	echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
+	echo "export DOTFILES=${DOTFILES}"  >> ~/.profile.d/profile.dotfilepath
     fi
     chmod +x $DOTFILES/bin/* 
 }

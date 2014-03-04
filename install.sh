@@ -51,6 +51,7 @@ install_ant
 install_jad
 install_cljdb
 install_maven_pom_mode
+## install_jdibug # BROKEN
 
 create_gpg_keys
 

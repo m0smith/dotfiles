@@ -28,5 +28,6 @@
 (package-install 'ecb)
 (package-install 'flycheck)
 (package-install 'markdown-mode)
+(package-install 'magit)
 
 
