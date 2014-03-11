@@ -131,7 +131,8 @@
 ;;
 
 (defun m0java-mode-hook ()
-  (setq indent-tabs-mode nil))
+  (setq indent-tabs-mode nil)
+  (setq tab-width 4))
 
 (add-hook 'java-mode-hook 'm0java-mode-hook)
 
