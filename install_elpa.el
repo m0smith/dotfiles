@@ -29,5 +29,6 @@
 (package-install 'flycheck)
 (package-install 'markdown-mode)
 (package-install 'magit)
+(package-install 'projectile)
 
 
