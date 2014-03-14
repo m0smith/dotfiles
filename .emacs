@@ -128,7 +128,7 @@
 
 (defun ecb-on () 
   (interactive)
-  (ignore-errors (ecb-activitate)))
+  (ignore-errors (ecb-activate)))
 
 
 ;;
