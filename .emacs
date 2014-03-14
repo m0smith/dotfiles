@@ -124,6 +124,7 @@
 ;;
 ;;     See http://stackoverflow.com/questions/20129637/emacs-24-3-1-cedet-2-0-built-in-and-ecb-20131116-1319-errors-during-the-layou/20797568?noredirect=1#20797568
 (setq ecb-examples-bufferinfo-buffer-name nil)
+(defun ecb-on (ignore-errors (ecb-activitate)))
 
 
 ;;
@@ -177,6 +178,7 @@
 (add-to-tags-table-list "~/workspace")
 (add-to-tags-table-list "~/projects")
 
+(projectile-global-mode)
 
 ;;;
 ;;; maven-pom-mode
@@ -212,7 +214,6 @@
    "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
-
 
 ;;
 ;; Random utilites
