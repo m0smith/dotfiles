@@ -123,8 +123,12 @@
 ;; ECB
 ;;
 ;;     See http://stackoverflow.com/questions/20129637/emacs-24-3-1-cedet-2-0-built-in-and-ecb-20131116-1319-errors-during-the-layou/20797568?noredirect=1#20797568
+
 (setq ecb-examples-bufferinfo-buffer-name nil)
-(defun ecb-on (ignore-errors (ecb-activitate)))
+
+(defun ecb-on () 
+  (interactive)
+  (ignore-errors (ecb-activitate)))
 
 
 ;;
