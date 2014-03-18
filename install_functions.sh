@@ -81,9 +81,10 @@ function install_malabar_mode {
 
 function install_dotfile_path {
     if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
-	echo "export PATH=\${PATH}:$DOTFILES/bin" > ~/.profile.d/profile.dotfilepath
-	echo "export DOTFILES=${DOTFILES}"  >> ~/.profile.d/profile.dotfilepath
+	rm ~/.profile.d/profile.dotfilepath
     fi
+    echo "export PATH=\${PATH}:${DOTFILES}/bin" > ~/.profile.d/profile.dotfilepath
+    echo "export DOTFILES=${DOTFILES}"  >> ~/.profile.d/profile.dotfilepath
     chmod +x $DOTFILES/bin/* 
 }
 
