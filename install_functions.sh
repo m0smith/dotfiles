@@ -37,7 +37,7 @@ function install_elpa {
     DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs  -nw --script "$DOTFILES/install_elpa.el"
 }
 
-function byte_copmile {
+function byte_compile {
     DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/.emacs.d/init.d" 0)' 
 }
 
@@ -195,7 +195,7 @@ function install_maven_pom_mode {
     if [[ ! -d ~/projects/maven-pom-mode ]]; then
 	cd ~/projects
 	git clone https://github.com/m0smith/maven-pom-mode.git
-    DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/maven-pom-mode" 0)' 
+	DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/maven-pom-mode" 0)' 
     fi
 }
 
