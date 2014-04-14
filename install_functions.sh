@@ -178,7 +178,7 @@ function install_cljdb {
     if [[ ! -d ~/projects/cljdb ]]; then
 	cd ~/projects
 	git clone https://github.com/m0smith/cljdb.git
-    DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/cljdb" 0)' 
+	DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/cljdb" 0)' 
     fi
 }
 
