@@ -50,7 +50,10 @@ install_mvn
 install_ant
 install_jad
 install_cljdb
+install_org-present
 install_maven_pom_mode
+byte_compile
+
 ## install_jdibug # BROKEN
 
 create_gpg_keys

@@ -34,7 +34,11 @@ function link_with_backup2 {
 
 function install_elpa {
     rm -rf "$DOTFILES/.emacs.d/elpa"
-   DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs  -nw --script "$DOTFILES/install_elpa.el"
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs  -nw --script "$DOTFILES/install_elpa.el"
+}
+
+function byte_copmile {
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/.emacs.d/init.d" 0)' 
 }
 
 function create_dir {
@@ -174,6 +178,16 @@ function install_cljdb {
     if [[ ! -d ~/projects/cljdb ]]; then
 	cd ~/projects
 	git clone https://github.com/m0smith/cljdb.git
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/cljdb" 0)' 
+    fi
+}
+
+
+function install_org_present {
+    if [[ ! -d ~/projects/org-present ]]; then
+	cd ~/projects
+	git clone https://github.com/rlister/org-present.git
+	DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/org-present" 0)' 
     fi
 }
 
@@ -181,6 +195,7 @@ function install_maven_pom_mode {
     if [[ ! -d ~/projects/maven-pom-mode ]]; then
 	cd ~/projects
 	git clone https://github.com/m0smith/maven-pom-mode.git
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/maven-pom-mode" 0)' 
     fi
 }
 
