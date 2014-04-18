@@ -4,6 +4,7 @@
 
 export PATH=${HOME}/bin:$PATH
 export CVS_RSH=ssh
+export EDITOR=edit
 
 if [[ -d ~/.profile.d ]]; then
     for f in ~/.profile.d/* ; do
@@ -16,6 +17,9 @@ if [[ -f ~/.profile ]]; then
 fi
 
 alias e=edit
+alias em=edit
+
+
 
 function set_proxy {
     if [ -z "$PROXY_HOST" -o -z "$PROXY_PORT" ]; then
