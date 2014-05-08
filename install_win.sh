@@ -8,7 +8,7 @@ function cygwin_requires {
 	echo "Missing $1"
 	cat <<EOF
 Before running this, be sure and install the latest cygwin:
-      emacs, emacs-el, ctags, git, wget curl, openssh, zip, unzip, subversion, dos2unix, gnupg, cvs, make.
+      emacs, emacs-el, ctags, git, wget curl, openssh, zip, unzip, subversion, dos2unix, gnupg, cvs, make, aspell, aspell-en.
 
 Also set HOME in the computer propeties to %HOMEDRIVE%%HOMEPATH%
 
@@ -39,6 +39,7 @@ if [[ "$os" = "Cygwin" ]]; then
     cygwin_requires "svn"
     cygwin_requires "cvs"
     cygwin_requires "make"
+    cygwin_requires "aspell"
 
     ## Setup home as per: http://stackoverflow.com/questions/225764/safely-change-home-directory-in-cygwin/10321615#10321615
     cd /
