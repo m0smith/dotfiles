@@ -147,6 +147,7 @@
 ;; Malabar Mode
 ;;    https://github.com/dstu/malabar-mode
 (defun malabar-mode-bootstrap ()
+  (interactive)
   (require 'cedet)
   (require 'semantic)
   (load "semantic/loaddefs.el")
@@ -165,7 +166,7 @@
 	     (when (= 0 (buffer-size))
 	       (malabar-codegen-insert-class-template))))
 
-(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode-bootstrap))
+;;(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode-bootstrap))
 
 
 ;;;
