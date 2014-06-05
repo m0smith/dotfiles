@@ -18,7 +18,7 @@ fi
 
 alias e=edit
 alias em=edit
-
+export LESS="-in"
 
 
 function set_proxy {
