@@ -19,7 +19,7 @@ REM
 REM Download Cygwin to c:\temp
 REM
 
-cscript mswindows\fetchcygwin.vbs
+cscript fetchcygwin.vbs
 
 REM 
 REM Install required packages from Cygwin

@@ -128,6 +128,7 @@
 
 (defun ecb-on () 
   (interactive)
+  (setq ecb-examples-bufferinfo-buffer-name nil)
   (ignore-errors (ecb-activate)))
 
 
@@ -231,3 +232,4 @@
     (while (search-forward "\15" nil t)
       (replace-match "" nil t))))
 
+(put 'narrow-to-region 'disabled nil)
