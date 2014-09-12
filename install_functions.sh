@@ -15,12 +15,33 @@ function backup {
     fi
 }
 
+function myln {
+    local src="$1"
+    local rawtarget="$2"
+    if [[ -d "$rawtarget" ]]; then
+	LINKCMD="$LINKDIR"
+    else
+	LINKCMD="$LINK"
+    fi
+    if [[ $"os" -eq "Cygwin" ]]; then
+	src=`cygpath -w "$1"`
+	target=`cygpath -w "$2"`
+	$LINKCMD "$target" "$src"
+    else
+	target="$rawtarget"
+	$LINKCMD "$src" "$target"
+
+    fi
+
+}
+
 function link_with_backup {
     local filename="$1"
     local source="$DOTFILES/$filename"
     local target="$HOME/$filename"
     backup "$target"
-    ln -s "$source" "$target"
+    myln "$source" "$target"
+
 }
 
 function link_with_backup2 {
@@ -29,7 +50,7 @@ function link_with_backup2 {
     local source="$DOTFILES/$filename"
     local target="$HOME/$targetname"
     backup "$target"
-    ln -s "$source" "$HOME/$targetname"
+    myln "$source" "$target"
 }
 
 function install_elpa {
@@ -133,7 +154,7 @@ function install_mvn_version {
     unzip -a "$mtdir/$z"
     rm -rf "$mtdir"
     cd ~/bin
-    ln -s ~/opt/apache-maven-$2/bin/mvn mvn-$2
+    myln ~/opt/apache-maven-$2/bin/mvn mvn-$2
     chmod +x mvn*
 }
 
@@ -148,7 +169,7 @@ function install_mvn {
 	zip311=$mavendist/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.zip 
 	install_mvn_version $zip305 3.0.5
 	install_mvn_version $zip311 3.1.1
-	ln -s mvn-3.0.5 mvn
+	myln mvn-3.0.5 mvn
 	chmod +x mvn*
 	echo "Maven 3.0.5 and 3.1.1 installed with 3.0.5 active"
     fi
@@ -168,7 +189,7 @@ function install_ant {
 	unzip -q /tmp/$zname
 	rm /tmp/$zname
 	cd ~/bin
-	ln -s ~/opt/$pname/bin/ant ant
+	myln ~/opt/$pname/bin/ant ant
 	chmod +x ant
 	echo "Ant 1.9.2 installed"
     fi

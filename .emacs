@@ -1,5 +1,19 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
+
+(when (string-equal system-type "windows-nt")
+  (add-to-list 'exec-path  "c:/cygwin64/usr/local/bin")
+  (add-to-list 'exec-path  "c:/cygwin64/usr/bin")
+  (add-to-list 'exec-path  "c:/cygwin64/bin")
+
+  (setenv "PATH"
+	  (concat
+	   "C:/cygwin64/usr/local/bin" ";"
+	   "C:/cygwin64/usr/bin" ";"
+	   "C:/cygwin64/bin" ";"
+	   (getenv "PATH"))))
+
+
 (if (eq system-type 'cygwin)
     (load-file "~/.emacs.d/cygwin/init.el"))
 
@@ -194,6 +208,13 @@
 (add-to-list 'load-path "~/projects/maven-pom-mode")
 (load "maven-pom-mode")
 
+
+;;;
+;;;  SQL
+;;;
+
+
+(load "sql-org-connect")
 
 ;;;
 ;;; jdibug

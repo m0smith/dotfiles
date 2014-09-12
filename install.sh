@@ -7,6 +7,8 @@ set -e
 cd `dirname $0`
 export DOTFILES=`pwd`
 
+
+. $DOTFILES/setenv.sh
 . $DOTFILES/install_functions.sh
 
 
@@ -27,8 +29,6 @@ create_dir ~/.profile.d
 
 add_to_path ~/bin
 
-
-os=`uname -o`
 if [[ "$os" = "Cygwin" ]]; then 
     . $DOTFILES/install_win.sh
 else
