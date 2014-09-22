@@ -5,6 +5,7 @@
 export PATH=${HOME}/bin:$PATH
 export CVS_RSH=ssh
 export EDITOR=edit
+export PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\] :$( [ $? == 0 ] && echo ") " || echo "( " )\n\$ '
 
 if [[ -d ~/.profile.d ]]; then
     for f in ~/.profile.d/* ; do
