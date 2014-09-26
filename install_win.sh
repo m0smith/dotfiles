@@ -69,6 +69,14 @@ if [[ "$os" = "Cygwin" ]]; then
 
     fi
 
+    if [[ ! -f ~/bin/lein.bat ]]; then
+	cd ~/bin
+	wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+	chmod +x lein.bat
+    fi
+
+
+
     reg=$HOME/var/reg/emacs.reg
     if [ ! -f "$reg" ]; then
 	regdir=`dirname $reg`
