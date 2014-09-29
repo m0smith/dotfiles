@@ -197,7 +197,10 @@
 
 (add-to-tags-table-list "~/workspace")
 (add-to-tags-table-list "~/projects")
-
+;;;
+;;; projectile
+;;;
+(require 'projectile)
 (projectile-global-mode)
 
 ;;;
