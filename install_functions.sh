@@ -26,6 +26,7 @@ function myln {
     if [ "$os" == "Cygwin" ]; then
 	src=`cygpath -w "$1"`
 	target=`cygpath -w "$2"`
+	echo 	$LINKCMD "$target" "$src"
 	$LINKCMD "$target" "$src"
     else
 	target="$rawtarget"
@@ -35,13 +36,19 @@ function myln {
 
 }
 
-function link_with_backup {
-    local filename="$1"
-    local source="$DOTFILES/$filename"
-    local target="$HOME/$filename"
+function link_with_backup_raw {
+    local source="$1"
+    local target="$2"
     backup "$target"
     myln "$source" "$target"
 
+}
+function link_with_backup {
+
+    local filename="$1"
+    local source="$DOTFILES/$filename"
+    local target="$HOME/$filename"
+    link_with_backup_raw "$source" "$target"
 }
 
 function link_with_backup2 {
@@ -49,8 +56,7 @@ function link_with_backup2 {
     local targetname="$2"
     local source="$DOTFILES/$filename"
     local target="$HOME/$targetname"
-    backup "$target"
-    myln "$source" "$target"
+    link_with_backup_raw "$source" "$target"
 }
 
 function install_elpa {

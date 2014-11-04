@@ -22,7 +22,7 @@ EOF
 
 os=`uname -o`
 if [[ "$os" = "Cygwin" ]]; then 
-
+    link_with_backup_raw "$DOTFILES/.emacs" "C:/.emacs"
     link_with_backup2 mswindows/.bashrc_cygwin .profile.d/bashrc_cygwin 
 
     export JAD_EXE=jad.exe
@@ -69,6 +69,13 @@ if [[ "$os" = "Cygwin" ]]; then
 
     fi
 
+
+    if [ ! -d "$HOME/opt/emacs" ]; then
+	cd /tmp
+	wget -O emacs-bin-w64-24.4.7z "http://downloads.sourceforge.net/project/emacsbinw64/release/emacs-bin-w64-24.4.7z?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Femacsbinw64%2Ffiles%2Frelease%2F&ts=1415120660&use_mirror=hivelocity"
+	7za.exe x -o`cygpath -w "$HOME/opt"` emacs-bin-w64-24.4.7z
+    fi
+    
     reg=$HOME/var/reg/emacs.reg
     if [ ! -f "$reg" ]; then
 	regdir=`dirname $reg`
