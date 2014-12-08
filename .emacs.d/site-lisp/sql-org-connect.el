@@ -51,7 +51,7 @@ Columns of the table must correspond to the `sql-org-connect-columns' variable."
        (database (nth (cl-position 'sql-org-connect-service sql-org-connect-columns) cur-row))
        (user    (if is-user-selected	(thing-at-point 'symbol)   
 		  (nth (cl-position 'sql-org-connect-user sql-org-connect-columns) cur-row))))
-    (re-search-backward "^[*]")
+    (org-back-to-heading)
     (org-shifttab)
     (save-excursion
       (with-temp-buffer
