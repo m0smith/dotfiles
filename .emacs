@@ -1,5 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
+(load-file "~/projects/cedet/cedet-devel-load.el")
+
 
 (when (string-equal system-type "windows-nt")
   (add-to-list 'exec-path  "c:/cygwin64/usr/local/bin")
@@ -54,8 +56,6 @@
 ;;(set-foreground-color "white")
 
 
-
-
 ;;
 ;; PACKAGE
 ;;
@@ -64,13 +64,27 @@
 
 (eval-after-load 'package
   '(progn
-     (add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
      (add-to-list 'package-archives  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+     ;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
 
      (message "Starting package")
      ))
 
 (package-initialize)
+
+
+;;
+;; Malabar
+;;
+
+
+(load-file "~/projects/malabar-mode/src/main/lisp/new/malabar-mode.el")
+
+(eval-after-load 'groovy-mode
+  (add-hook 'groovy-mode-hook 'flycheck-mode))
+(eval-after-load 'java-mode
+  (add-hook 'java-mode-hook   'flycheck-mode))
+
 
 ;;
 ;; Start the emacs server going
@@ -133,70 +147,7 @@
      (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))))
 
 
-;;
-;; ECB
-;;
-;;     See http://stackoverflow.com/questions/20129637/emacs-24-3-1-cedet-2-0-built-in-and-ecb-20131116-1319-errors-during-the-layou/20797568?noredirect=1#20797568
 
-(setq ecb-examples-bufferinfo-buffer-name nil)
-
-(defun ecb-on () 
-  (interactive)
-  (setq ecb-examples-bufferinfo-buffer-name nil)
-  (ignore-errors (ecb-activate)))
-
-
-;;
-;; JAVA
-;;
-
-(defun m0java-mode-hook ()
-  (setq indent-tabs-mode nil)
-  (setq tab-width 4))
-
-(add-hook 'java-mode-hook 'm0java-mode-hook)
-
-(add-to-list 'auto-mode-alist '("\\.groovy\\'" . java-mode))
-
-;;
-;; Malabar Mode
-;;    https://github.com/dstu/malabar-mode
-(defun malabar-mode-bootstrap ()
-  (interactive)
-  (require 'cedet)
-  (require 'semantic)
-  (load "semantic/loaddefs.el")
-  (semantic-mode 1);;
-  (require 'malabar-mode)
-  (load "malabar-flycheck")
-  
-  (malabar-mode)
-  (flycheck-mode))
-;;(load "malabar-util.el")
-
-
-;; Auto-populate an empty java file
-(add-hook 'malabar-mode-hook 
-	  '(lambda ()
-	     (when (= 0 (buffer-size))
-	       (malabar-codegen-insert-class-template))))
-
-;;(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode-bootstrap))
-
-
-;;;
-;;; Malabar workspace definition
-;;;
-
-(defun add-to-tags-table-list (dir)
-  (interactive "DDirectory:")
-  (if (file-exists-p dir)
-    (dolist (file (directory-files dir t))
-      (if (file-exists-p (expand-file-name (concat file "/TAGS")))
-	  (add-to-list 'tags-table-list file)))))
-
-(add-to-tags-table-list "~/workspace")
-(add-to-tags-table-list "~/projects")
 ;;;
 ;;; projectile
 ;;;
@@ -246,6 +197,15 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
 
 ;;
+;; TRAMP
+;;
+
+(require 'tramp)
+(set-default 'tramp-auto-save-directory "C:/Users/lpmsmith/AppData/Local/Temp")
+(set-default 'tramp-default-method "plink")
+
+
+;;
 ;; Random utilites
 ;;      See http://www.emacswiki.org/emacs/MatthewSmith
 
@@ -257,3 +217,72 @@
       (replace-match "" nil t))))
 
 (put 'narrow-to-region 'disabled nil)
+
+; -------------------------------------------------------------------------------
+; Old malabar-mode config
+;--------------------------------------------------------------------------------
+
+;;
+;; ECB
+;;
+
+;;     See http://stackoverflow.com/questions/20129637/emacs-24-3-1-cedet-2-0-built-in-and-ecb-20131116-1319-errors-during-the-layou/20797568?noredirect=1#20797568
+
+;;(setq ecb-examples-bufferinfo-buffer-name nil)
+
+;;(defun ecb-on () 
+;;  (interactive)
+;;  (setq ecb-examples-bufferinfo-buffer-name nil)
+;;  (ignore-errors (ecb-activate)))
+
+;;
+;; JAVA
+;;
+
+;; (defun m0java-mode-hook ()
+;;   (setq indent-tabs-mode nil)
+;;   (setq tab-width 4))
+
+;; (add-hook 'java-mode-hook 'm0java-mode-hook)
+
+;; (add-to-list 'auto-mode-alist '("\\.groovy\\'" . java-mode))
+
+;; ;;
+;; ;; Malabar Mode
+;; ;;    https://github.com/dstu/malabar-mode
+;; (defun malabar-mode-bootstrap ()
+;;   (interactive)
+;;   (require 'cedet)
+;;   (require 'semantic)
+;;   (load "semantic/loaddefs.el")
+;;   (semantic-mode 1);;
+;;   (require 'malabar-mode)
+;;   (load "malabar-flycheck")
+  
+;;   (malabar-mode)
+;;   (flycheck-mode))
+;; ;;(load "malabar-util.el")
+
+
+;; ;; Auto-populate an empty java file
+;; (add-hook 'malabar-mode-hook 
+;; 	  '(lambda ()
+;; 	     (when (= 0 (buffer-size))
+;; 	       (malabar-codegen-insert-class-template))))
+
+;; ;;(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode-bootstrap))
+
+
+;; ;;;
+;; ;;; Malabar workspace definition
+;; ;;;
+
+;; (defun add-to-tags-table-list (dir)
+;;   (interactive "DDirectory:")
+;;   (if (file-exists-p dir)
+;;     (dolist (file (directory-files dir t))
+;;       (if (file-exists-p (expand-file-name (concat file "/TAGS")))
+;; 	  (add-to-list 'tags-table-list file)))))
+
+;; (add-to-tags-table-list "~/workspace")
+;; (add-to-tags-table-list "~/projects")
