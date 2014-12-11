@@ -78,7 +78,7 @@
 ;;
 
 
-(load-file "~/projects/malabar-mode/src/main/lisp/new/malabar-mode.el")
+(load-file "~/projects/malabar-mode/src/main/lisp/malabar-mode.el")
 
 (eval-after-load 'groovy-mode
   (add-hook 'groovy-mode-hook 'flycheck-mode))
