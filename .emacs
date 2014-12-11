@@ -1,3 +1,6 @@
+(when (string-equal system-type "windows-nt")
+  (setenv "HOME" (getenv "USERPROFILE")))
+	 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
 (load-file "~/projects/cedet/cedet-devel-load.el")
@@ -7,9 +10,11 @@
   (add-to-list 'exec-path  "c:/cygwin64/usr/local/bin")
   (add-to-list 'exec-path  "c:/cygwin64/usr/bin")
   (add-to-list 'exec-path  "c:/cygwin64/bin")
+  (add-to-list 'exec-path  (expand-file-name "~/bin"))
 
   (setenv "PATH"
 	  (concat
+	   (expand-file-name "~/bin") ";"
 	   "C:/cygwin64/usr/local/bin" ";"
 	   "C:/cygwin64/usr/bin" ";"
 	   "C:/cygwin64/bin" ";"
@@ -35,7 +40,7 @@
 
 
 
-(setq custom-file "~/.emacs-custom.el")
+(setq custom-file (expand-file-name "~/.emacs-custom.el"))
 (load custom-file)
 
 ;;
@@ -127,6 +132,8 @@
   (require 'cider)
   (load-file "~/projects/cljdb/cljdb.el")
   (load "m0clj")
+  (when (string-equal system-type "windows-nt")
+    (setq cider-lein-command "lein.bat"))
   (clojure-mode))
 
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode-bootstrap))

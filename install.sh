@@ -1,4 +1,4 @@
-#
+#!/bin/bash
 # From https://github.com/stuartsierra/dotfiles
 # 
 
@@ -29,11 +29,11 @@ create_dir ~/.profile.d
 
 add_to_path ~/bin
 
-if [[ "$os" = "Cygwin" ]]; then 
+if [ "$os" == "Cygwin" ]; then 
     . $DOTFILES/install_win.sh
 else
     os2=`cat /proc/version_signature | cut -d" " -f1`
-    if [[ "$os2" = "Ubuntu" ]]; then 
+    if [ "$os2" == "Ubuntu" ]; then 
 	. $DOTFILES/install_ubuntu.sh
     else 
 	echo "os=$os and os2=$os2"

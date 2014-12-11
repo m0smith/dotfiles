@@ -8,9 +8,9 @@ function add_to_path {
 
 function backup {
     local file="$1"
-    if [[ -L "$file" ]]; then
+    if [ -L "$file" ]; then
 	rm "$file"
-    elif [[ -e "$file" ]]; then
+    elif [ -e "$file" ]; then
 	mv "$file" "$file.bak"
     fi
 }
@@ -18,14 +18,15 @@ function backup {
 function myln {
     local src="$1"
     local rawtarget="$2"
-    if [[ -d "$rawtarget" ]]; then
+    if [ -d "$rawtarget" ]; then
 	LINKCMD="$LINKDIR"
     else
 	LINKCMD="$LINK"
     fi
-    if [[ $"os" -eq "Cygwin" ]]; then
+    if [ "$os" == "Cygwin" ]; then
 	src=`cygpath -w "$1"`
 	target=`cygpath -w "$2"`
+	echo 	$LINKCMD "$target" "$src"
 	$LINKCMD "$target" "$src"
     else
 	target="$rawtarget"
@@ -35,13 +36,19 @@ function myln {
 
 }
 
-function link_with_backup {
-    local filename="$1"
-    local source="$DOTFILES/$filename"
-    local target="$HOME/$filename"
+function link_with_backup_raw {
+    local source="$1"
+    local target="$2"
     backup "$target"
     myln "$source" "$target"
 
+}
+function link_with_backup {
+
+    local filename="$1"
+    local source="$DOTFILES/$filename"
+    local target="$HOME/$filename"
+    link_with_backup_raw "$source" "$target"
 }
 
 function link_with_backup2 {
@@ -49,8 +56,7 @@ function link_with_backup2 {
     local targetname="$2"
     local source="$DOTFILES/$filename"
     local target="$HOME/$targetname"
-    backup "$target"
-    myln "$source" "$target"
+    link_with_backup_raw "$source" "$target"
 }
 
 function install_elpa {
@@ -63,7 +69,7 @@ function byte_compile {
 }
 
 function create_dir {
-    if [[ ! -d "$1" ]]; then
+    if [ ! -d "$1" ]; then
 	mkdir -p "$1"
     fi
 }
@@ -78,8 +84,8 @@ function install_jdibug {
 
 
 function install_malabar_mode {
-    if [[ -d $HOME/projects/malabar-mode ]]; then
-	if [[ "$os" = "Cygwin" ]]; then 
+    if [ -d $HOME/projects/malabar-mode ]; then
+	if [ "$os" = "Cygwin" ]; then 
 	    w=`which emacs`
 	    echo `cygpath -w $w`" -nw %* " > ~/projects/malabar-mode/emacs.bat
 	fi
@@ -93,7 +99,7 @@ function install_malabar_mode {
 
 	echo "(setq  malabar-dir \"~/.emacs.d/$mver\")" > ~/.emacs.d/init.d/malabar-mode-dir.el
 	echo "(add-to-list 'load-path (expand-file-name (format \"%s/lisp\" malabar-dir)))" >> ~/.emacs.d/init.d/malabar-mode-dir.el
-	 if [[ "$os" = "Cygwin" ]]; then 
+	 if [ "$os" = "Cygwin" ]; then 
 	     echo "(setq malabar-util-path-separator \";\")" > ~/.emacs.d/init.d/malabar-mode-cygwin.el
 	     echo "(setq malabar-util-path-filter 'cygwin-convert-file-name-to-windows)" >> ~/.emacs.d/init.d/malabar-mode-cygwin.el
 	     echo "(setq malabar-util-groovy-file-filter 'malabar-util-reverse-slash)"  >> ~/.emacs.d/init.d/malabar-mode-cygwin.el
@@ -114,13 +120,13 @@ function install_dotfile_path {
 }
 
 function install_lein {
-    if [[ ! -f ~/bin/lein ]]; then
+    if [ ! -f ~/bin/lein ]; then
 	cd ~/bin
 	wget https://raw.github.com/technomancy/leiningen/stable/bin/lein
 	chmod +x lein
     fi
 
-    if [[ ! -f ~/bin/lein-exec ]]; then
+    if [ ! -f ~/bin/lein-exec ]; then
 	cd ~/bin
 	wget https://raw.github.com/kumarshantanu/lein-exec/master/lein-exec
 	chmod +x lein-exec
@@ -133,7 +139,7 @@ function install_lein {
 ##    Requires JAD_EXE be set to either jad or jad.exe for linux and windows
 ##
 function install_jad {
-    if [[ ! -f ~/bin/${JAD_EXE} ]]; then
+    if [ ! -f ~/bin/${JAD_EXE} ]; then
 	link_with_backup2 opt/jad/${JAD_EXE} bin/${JAD_EXE}
 	chmod +x ~/bin/${JAD_EXE}
     fi
@@ -163,7 +169,7 @@ function install_mvn_version {
 ##   Install version 3.0.5 and 3.1.1 of maven with 3.0.5 bein the active one
 
 function install_mvn {
-    if [[ ! -f ~/bin/mvn ]]; then
+    if [ ! -f ~/bin/mvn ]; then
 	mavendist=http://psg.mtu.edu/pub/apache/maven
 	zip305=$mavendist/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip 
 	zip311=$mavendist/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.zip 
@@ -180,7 +186,7 @@ function install_mvn {
 ##   Dowload, extract and add ant to the PATH
 
 function install_ant {
-    if [[ ! -f ~/bin/ant ]]; then
+    if [ ! -f ~/bin/ant ]; then
 	pname=apache-ant-1.9.2
 	zname=${pname}-bin.zip
 	cd /tmp
@@ -196,7 +202,7 @@ function install_ant {
 }
 
 function install_cljdb {
-    if [[ ! -d ~/projects/cljdb ]]; then
+    if [ ! -d ~/projects/cljdb ]; then
 	cd ~/projects
 	git clone https://github.com/m0smith/cljdb.git
 	DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/cljdb" 0)' 
@@ -205,7 +211,7 @@ function install_cljdb {
 
 
 function install_org_present {
-    if [[ ! -d ~/projects/org-present ]]; then
+    if [ ! -d ~/projects/org-present ]; then
 	cd ~/projects
 	git clone https://github.com/rlister/org-present.git
 	DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/org-present" 0)' 
@@ -213,7 +219,7 @@ function install_org_present {
 }
 
 function install_maven_pom_mode {
-    if [[ ! -d ~/projects/maven-pom-mode ]]; then
+    if [ ! -d ~/projects/maven-pom-mode ]; then
 	cd ~/projects
 	git clone https://github.com/m0smith/maven-pom-mode.git
 	DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/maven-pom-mode" 0)' 
