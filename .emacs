@@ -8,7 +8,8 @@
 ;; See cedet/common/cedet.info for configuration details.
 ;; IMPORTANT: Tou must place this *before* any CEDET component (including
 ;; EIEIO) gets activated by another package (Gnus, auth-source, ...).
-(load-file "~/projects/cedet/cedet-devel-load.el")
+(if (not (featurep (quote cedet-devel-load)))
+	 (load-file "~/projects/cedet/cedet-devel-load.el"))
 ;; Add further minor-modes to be enabled by semantic-mode.
 ;; See doc-string of `semantic-default-submodes' for other things
 ;; you can use here.
@@ -25,7 +26,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
-(load-file "~/projects/cedet/cedet-devel-load.el")
+
 
 
 (when (string-equal system-type "windows-nt")
@@ -98,19 +99,6 @@
      ))
 
 (package-initialize)
-
-
-;;
-;; Malabar
-;;
-
-
-(load-file "~/projects/malabar-mode/src/main/lisp/malabar-mode.el")
-
-(eval-after-load 'groovy-mode
-  (add-hook 'groovy-mode-hook 'flycheck-mode))
-(eval-after-load 'java-mode
-  (add-hook 'java-mode-hook   'flycheck-mode))
 
 
 ;;
@@ -204,8 +192,8 @@
 ;;
 ;; Malabar
 ;;
-
-(load-file "~/projects/malabar-mode/src/main/lisp/new/malabar-mode.el")
+(add-to-list 'load-path "~/projects/malabar-mode/src/main/lisp")
+(load "malabar-mode")
 
 (eval-after-load 'groovy-mode
   (add-hook 'groovy-mode-hook 'flycheck-mode))
