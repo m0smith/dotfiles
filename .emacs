@@ -207,6 +207,11 @@
 
 (load-file "~/projects/malabar-mode/src/main/lisp/new/malabar-mode.el")
 
+(eval-after-load 'groovy-mode
+  (add-hook 'groovy-mode-hook 'flycheck-mode))
+(eval-after-load 'java-mode
+  (add-hook 'java-mode-hook   'flycheck-mode))
+
 ;;
 ;; Malabar Mode
 ;;    https://github.com/dstu/malabar-mode
