@@ -1,6 +1,28 @@
 (when (string-equal system-type "windows-nt")
   (setenv "HOME" (getenv "USERPROFILE")))
-	 
+
+
+;; start malabar 2.0
+
+;; Load CEDET.
+;; See cedet/common/cedet.info for configuration details.
+;; IMPORTANT: Tou must place this *before* any CEDET component (including
+;; EIEIO) gets activated by another package (Gnus, auth-source, ...).
+(load-file "~/projects/cedet/cedet-devel-load.el")
+;; Add further minor-modes to be enabled by semantic-mode.
+;; See doc-string of `semantic-default-submodes' for other things
+;; you can use here.
+;(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+;(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
+;; Enable Semantic
+(semantic-mode 1)
+;; Enable EDE (Project Management) features
+(global-ede-mode 1)
+
+;; End malabar 2.0
+
+
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
 
@@ -69,7 +91,7 @@
 
 (eval-after-load 'package
   '(progn
-     (add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
+     ;;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
      (add-to-list 'package-archives  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
      (message "Starting package")
@@ -145,12 +167,12 @@
 ;;
 ;;     See http://stackoverflow.com/questions/20129637/emacs-24-3-1-cedet-2-0-built-in-and-ecb-20131116-1319-errors-during-the-layou/20797568?noredirect=1#20797568
 
-(setq ecb-examples-bufferinfo-buffer-name nil)
+;; (setq ecb-examples-bufferinfo-buffer-name nil)
 
-(defun ecb-on () 
-  (interactive)
-  (setq ecb-examples-bufferinfo-buffer-name nil)
-  (ignore-errors (ecb-activate)))
+;; (defun ecb-on () 
+;;   (interactive)
+;;   (setq ecb-examples-bufferinfo-buffer-name nil)
+;;   (ignore-errors (ecb-activate)))
 
 
 ;;
@@ -163,30 +185,36 @@
 
 (add-hook 'java-mode-hook 'm0java-mode-hook)
 
-(add-to-list 'auto-mode-alist '("\\.groovy\\'" . java-mode))
+;(add-to-list 'auto-mode-alist '("\\.groovy\\'" . java-mode))
+
+;;
+;; Malabar
+;;
+
+(load-file "~/projects/malabar-mode/src/main/lisp/new/malabar-mode.el")
 
 ;;
 ;; Malabar Mode
 ;;    https://github.com/dstu/malabar-mode
-(defun malabar-mode-bootstrap ()
-  (interactive)
-  (require 'cedet)
-  (require 'semantic)
-  (load "semantic/loaddefs.el")
-  (semantic-mode 1);;
-  (require 'malabar-mode)
-  (load "malabar-flycheck")
+;; (defun malabar-mode-bootstrap ()
+;;   (interactive)
+;;   (require 'cedet)
+;;   (require 'semantic)
+;;   (load "semantic/loaddefs.el")
+;;   (semantic-mode 1);;
+;;   (require 'malabar-mode)
+;;   (load "malabar-flycheck")
   
-  (malabar-mode)
-  (flycheck-mode))
+;;   (malabar-mode)
+;;   (flycheck-mode))
 ;;(load "malabar-util.el")
 
 
 ;; Auto-populate an empty java file
-(add-hook 'malabar-mode-hook 
-	  '(lambda ()
-	     (when (= 0 (buffer-size))
-	       (malabar-codegen-insert-class-template))))
+;; (add-hook 'malabar-mode-hook 
+;; 	  '(lambda ()
+;; 	     (when (= 0 (buffer-size))
+;; 	       (malabar-codegen-insert-class-template))))
 
 ;;(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode-bootstrap))
 
@@ -195,15 +223,15 @@
 ;;; Malabar workspace definition
 ;;;
 
-(defun add-to-tags-table-list (dir)
-  (interactive "DDirectory:")
-  (if (file-exists-p dir)
-    (dolist (file (directory-files dir t))
-      (if (file-exists-p (expand-file-name (concat file "/TAGS")))
-	  (add-to-list 'tags-table-list file)))))
+;; (defun add-to-tags-table-list (dir)
+;;   (interactive "DDirectory:")
+;;   (if (file-exists-p dir)
+;;     (dolist (file (directory-files dir t))
+;;       (if (file-exists-p (expand-file-name (concat file "/TAGS")))
+;; 	  (add-to-list 'tags-table-list file)))))
 
-(add-to-tags-table-list "~/workspace")
-(add-to-tags-table-list "~/projects")
+;; (add-to-tags-table-list "~/workspace")
+;; (add-to-tags-table-list "~/projects")
 ;;;
 ;;; projectile
 ;;;
@@ -262,5 +290,15 @@
     (goto-char (point-min))
     (while (search-forward "\15" nil t)
       (replace-match "" nil t))))
+
+(defun list-all-buffers (&optional files-only)
+  "Display a list of names of existing buffers.
+The list is displayed in a buffer named `*Buffer List*'.
+Non-null optional arg FILES-ONLY means mention only file buffers.
+
+For more information, see the function `buffer-menu'."
+  (interactive "P")
+  (display-buffer (list-buffers-noselect files-only (buffer-list))))
+
 
 (put 'narrow-to-region 'disabled nil)

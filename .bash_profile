@@ -33,3 +33,6 @@ function set_proxy {
     export https_proxy="$proxy"
     export ftp_proxy="$proxy"
 }
+
+#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
+[[ -s "/home/Smith/.gvm/bin/gvm-init.sh" ]] && source "/home/Smith/.gvm/bin/gvm-init.sh"

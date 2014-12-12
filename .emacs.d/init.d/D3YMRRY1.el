@@ -8,3 +8,5 @@
      (add-to-list 'malabar-groovy-extra-classpath
 		  (expand-file-name "~/test/config"))))
 
+
+(setq groovy-home "C:/Users/Smith/.gvm/groovy/2.3.7")
