@@ -36,3 +36,5 @@ function set_proxy {
 
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "/home/Smith/.gvm/bin/gvm-init.sh" ]] && source "/home/Smith/.gvm/bin/gvm-init.sh"
+#[[ -s "/cygdrive/c/Users/lpmsmith/.gvm/bin/gvm-init.sh" ]] && source "/cygdrive/c/Users/lpmsmith/.gvm/bin/gvm-init.sh"
+
