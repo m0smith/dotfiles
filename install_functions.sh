@@ -2,6 +2,7 @@
 # From https://github.com/stuartsierra/dotfiles
 # 
 
+
 function add_to_path {
     export PATH=${PATH}:$1
 }
@@ -14,6 +15,15 @@ function backup {
 	mv "$file" "$file.bak"
     fi
 }
+
+function fix_home {
+    if [ "$os" == "Cygwin" ]; then
+	backup /home
+	ln -s `cygpath -H` /home
+    fi
+
+}
+
 
 function myln {
     local src="$1"
