@@ -11,7 +11,7 @@ export DOTFILES=`pwd`
 . $DOTFILES/setenv.sh
 . $DOTFILES/install_functions.sh
 
-
+fix_home
 link_with_backup .bash_profile
 link_with_backup .emacs.d
 link_with_backup .emacs
