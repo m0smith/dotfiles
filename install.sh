@@ -2,6 +2,7 @@
 # From https://github.com/stuartsierra/dotfiles
 # 
 
+export CYGWIN="winsymlinks:nativestrict"
 set -e
 
 cd `dirname $0`

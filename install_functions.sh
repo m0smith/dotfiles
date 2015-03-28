@@ -18,7 +18,8 @@ function backup {
 
 function fix_home {
     if [ "$os" == "Cygwin" ]; then
-	backup /home
+	cd /
+	test -d home & rm -r home
 	ln -s `cygpath -H` /home
     fi
 

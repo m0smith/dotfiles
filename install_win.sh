@@ -76,14 +76,20 @@ if [[ "$os" = "Cygwin" ]]; then
 	chmod +x lein.bat
     fi
 
-
+    if [[ ! -f ~/bin/7za.exe ]]; then
+       cd /tmp
+       wget http://www.7-zip.org/a/7za920.zip
+       cd ~/bin
+       unzip /tmp/7za920.zip
+       chmod +x *.exe
+    fi
 
 
 
     if [ ! -d "$HOME/opt/emacs" ]; then
 	cd /tmp
 	wget -O emacs-bin-w64-24.4.7z "http://downloads.sourceforge.net/project/emacsbinw64/release/emacs-bin-w64-24.4.7z?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Femacsbinw64%2Ffiles%2Frelease%2F&ts=1415120660&use_mirror=hivelocity"
-	7za.exe x -o`cygpath -w "$HOME/opt"` emacs-bin-w64-24.4.7z
+	~/bin/7za.exe x -o`cygpath -w "$HOME/opt"` emacs-bin-w64-24.4.7z
     fi
     
 
@@ -91,8 +97,8 @@ if [[ "$os" = "Cygwin" ]]; then
     if [ ! -f "$reg" ]; then
 	regdir=`dirname $reg`
 	test -d $regdir || mkdir -p $regdir
-	emacs=`which emacs`
-	emacsclient=`which emacsclient`
+	emacs=~/opt/emacs/bin/runemacs.exe
+	emacsclient=~/opt/emacs/bin/emacsclient.exe
 	e=`cygpath -w "$emacs" | sed 's/\\\\/\\\\\\\\/g'`
 	ec=`cygpath -w "$emacsclient" | sed 's/\\\\/\\\\\\\\/g'`
 	cat > $reg <<EOF
