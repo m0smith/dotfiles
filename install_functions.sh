@@ -122,7 +122,7 @@ function install_malabar_mode {
 }
 
 function install_dotfile_path {
-    if [ ! -f ~/.profile.d/profile.dotfilepath ]; then
+    if [  -f ~/.profile.d/profile.dotfilepath ]; then
 	rm ~/.profile.d/profile.dotfilepath
     fi
     echo "export PATH=\${PATH}:${DOTFILES}/bin" > ~/.profile.d/profile.dotfilepath
@@ -198,7 +198,7 @@ function install_mvn {
 
 function install_ant {
     if [ ! -f ~/bin/ant ]; then
-	pname=apache-ant-1.9.2
+	pname=apache-ant-1.9.5
 	zname=${pname}-bin.zip
 	cd /tmp
 	wget http://apache.mirrors.tds.net/ant/binaries/$zname
