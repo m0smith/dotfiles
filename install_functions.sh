@@ -70,6 +70,20 @@ function link_with_backup2 {
     link_with_backup_raw "$source" "$target"
 }
 
+function install_gvm  {
+    if [ ! -f "$HOME/.gvm/bin/gvm-init.sh" ]; then
+	curl -s get.gvmtool.net | bash
+    fi
+    source "/home/m0smith/.gvm/bin/gvm-init.sh"
+    if [ ! -e "$HOME/.gvm/groovy/current" ]; then
+	gvm install groovy
+    fi
+    if [ ! -e "$HOME/.gvm/gradle/current" ]; then
+	gvm install gradle
+    fi
+    
+}	
+
 function install_elpa {
     rm -rf "$DOTFILES/.emacs.d/elpa"
     DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs  -nw --script "$DOTFILES/install_elpa.el"

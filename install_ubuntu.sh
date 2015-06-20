@@ -10,7 +10,7 @@ export JAD_EXE=jad
 #
 
 
-sudo apt-get install emacs24 emacs24-el git bzr ssh xterm wget software-properties-common x11-apps unzip \
+sudo apt-get install emacs24 emacs24-el git bzr ssh xterm wget curl software-properties-common x11-apps unzip \
                      cvs subversion texinfo
 sudo apt-get autoremove
 

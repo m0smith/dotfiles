@@ -50,6 +50,7 @@ install_lein
 install_mvn
 install_ant
 install_jad
+install_gvm
 install_cljdb
 install_org_present
 install_maven_pom_mode
