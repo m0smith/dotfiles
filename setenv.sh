@@ -1,6 +1,8 @@
 export os=`uname -o`
 
-export DOTFILES=`dirname $0`
+
+#export DOTFILES=`dirname $0`
+echo DOTFILES $DOTFILES
 
 if [[ "$os" = "Cygwin" ]]; then 
     export LINK="${DOTFILES}/mswindows/installer/elevate.exe /c mklink"
