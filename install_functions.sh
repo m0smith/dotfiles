@@ -58,7 +58,7 @@ function link_with_backup {
 
     local filename="$1"
     local source="$DOTFILES/$filename"
-    local target="$HOME/$filename"
+    local target="$TILDE/$filename"
     link_with_backup_raw "$source" "$target"
 }
 
@@ -66,20 +66,21 @@ function link_with_backup2 {
     local filename="$1"
     local targetname="$2"
     local source="$DOTFILES/$filename"
-    local target="$HOME/$targetname"
+    local target="$TILDE/$targetname"
     link_with_backup_raw "$source" "$target"
 }
 
 function install_gvm  {
-    if [ ! -f "$HOME/.gvm/bin/gvm-init.sh" ]; then
-	curl -s get.gvmtool.net | bash
+    shfile="${TILDE}/.sdkman/bin/sdkman-init.sh"
+    if [ ! -f "$shfile" ]; then
+	curl -s "https://get.sdkman.io"  | bash
     fi
-    source "/home/m0smith/.gvm/bin/gvm-init.sh"
-    if [ ! -e "$HOME/.gvm/groovy/current" ]; then
-	gvm install groovy
+    source "$shfile"
+    if [ ! -e "$TILDE/.sdkman/candidates/gradle/current" ]; then
+	sdk install gradle
     fi
-    if [ ! -e "$HOME/.gvm/gradle/current" ]; then
-	gvm install gradle
+    if [ ! -e "$TILDE/.sdkman/candidates/groovy/current" ]; then
+	sdk install groovy
     fi
     
 }	
@@ -101,59 +102,59 @@ function create_dir {
 
 function install_jdibug {
     cd /tmp
-    wget http://jdibug.googlecode.com/files/jdibug-0.5.tar.bz2
-    cd ~/.emacs.d
+    curl -O http://jdibug.googlecode.com/files/jdibug-0.5.tar.bz2
+    cd "${TILDE}"/.emacs.d
     tar jxvf /tmp/jdibug-0.5.tar.bz2
     rm /tmp/jdibug-0.5.tar.bz2
 }
 
 
 function install_malabar_mode {
-    if [ -d $HOME/projects/malabar-mode ]; then
+    if [ -d $TILDE/projects/malabar-mode ]; then
 	if [ "$os" = "Cygwin" ]; then 
 	    w=`which emacs`
-	    echo `cygpath -w $w`" -nw %* " > ~/projects/malabar-mode/emacs.bat
+	    echo `cygpath -w $w`" -nw %* " > "${TILDE}"/projects/malabar-mode/emacs.bat
 	fi
-	cd ~/projects/malabar-mode
+	cd "${TILDE}"/projects/malabar-mode
 	mvn  clean package
 	p=`pwd`
-	cd ~/.emacs.d/
+	cd "${TILDE}"/.emacs.d/
 	rm -rf malabar*
 	unzip "$p/target/malabar-*-dist.zip"
 	mver=`ls -dt mala* | head -1`
 
-	echo "(setq  malabar-dir \"~/.emacs.d/$mver\")" > ~/.emacs.d/init.d/malabar-mode-dir.el
-	echo "(add-to-list 'load-path (expand-file-name (format \"%s/lisp\" malabar-dir)))" >> ~/.emacs.d/init.d/malabar-mode-dir.el
+	echo "(setq  malabar-dir \"~/.emacs.d/$mver\")" > "${TILDE}"/.emacs.d/init.d/malabar-mode-dir.el
+	echo "(add-to-list 'load-path (expand-file-name (format \"%s/lisp\" malabar-dir)))" >> "${TILDE}"/.emacs.d/init.d/malabar-mode-dir.el
 	 if [ "$os" = "Cygwin" ]; then 
-	     echo "(setq malabar-util-path-separator \";\")" > ~/.emacs.d/init.d/malabar-mode-cygwin.el
-	     echo "(setq malabar-util-path-filter 'cygwin-convert-file-name-to-windows)" >> ~/.emacs.d/init.d/malabar-mode-cygwin.el
-	     echo "(setq malabar-util-groovy-file-filter 'malabar-util-reverse-slash)"  >> ~/.emacs.d/init.d/malabar-mode-cygwin.el
+	     echo "(setq malabar-util-path-separator \";\")" > "${TILDE}"/.emacs.d/init.d/malabar-mode-cygwin.el
+	     echo "(setq malabar-util-path-filter 'cygwin-convert-file-name-to-windows)" >> "${TILDE}"/.emacs.d/init.d/malabar-mode-cygwin.el
+	     echo "(setq malabar-util-groovy-file-filter 'malabar-util-reverse-slash)"  >> "${TILDE}"/.emacs.d/init.d/malabar-mode-cygwin.el
 	 fi
 
-	cd ~/.emacs.d/$mver/lisp
+	cd "${TILDE}"/.emacs.d/$mver/lisp
 	emacs -batch -L . -f batch-byte-compile *.el
     fi
 }
 
 function install_dotfile_path {
-    if [  -f ~/.profile.d/profile.dotfilepath ]; then
-	rm ~/.profile.d/profile.dotfilepath
+    if [  -f "${TILDE}"/.profile.d/profile.dotfilepath ]; then
+	rm "${TILDE}"/.profile.d/profile.dotfilepath
     fi
-    echo "export PATH=\${PATH}:${DOTFILES}/bin" > ~/.profile.d/profile.dotfilepath
-    echo "export DOTFILES=${DOTFILES}"  >> ~/.profile.d/profile.dotfilepath
+    echo "export PATH=\${PATH}:${DOTFILES}/bin" > "${TILDE}"/.profile.d/profile.dotfilepath
+    echo "export DOTFILES=${DOTFILES}"  >> "${TILDE}"/.profile.d/profile.dotfilepath
     chmod +x $DOTFILES/bin/* 
 }
 
 function install_lein {
-    if [ ! -f ~/bin/lein ]; then
-	cd ~/bin
-	wget https://raw.github.com/technomancy/leiningen/stable/bin/lein
+    if [ ! -f "${TILDE}"/bin/lein ]; then
+	cd "${TILDE}"/bin
+	curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	chmod +x lein
     fi
 
-    if [ ! -f ~/bin/lein-exec ]; then
-	cd ~/bin
-	wget https://raw.github.com/kumarshantanu/lein-exec/master/lein-exec
+    if [ ! -f "${TILDE}"/bin/lein-exec ]; then
+	cd "${TILDE}"/bin
+	curl -O https://raw.github.com/kumarshantanu/lein-exec/master/lein-exec
 	chmod +x lein-exec
     fi
 }
@@ -164,9 +165,21 @@ function install_lein {
 ##    Requires JAD_EXE be set to either jad or jad.exe for linux and windows
 ##
 function install_jad {
-    if [ ! -f ~/bin/${JAD_EXE} ]; then
+    if [ ! -f "${TILDE}"/bin/${JAD_EXE} ]; then
 	link_with_backup2 opt/jad/${JAD_EXE} bin/${JAD_EXE}
-	chmod +x ~/bin/${JAD_EXE}
+	chmod +x "${TILDE}"/bin/${JAD_EXE}
+    fi
+}
+
+
+##
+## install_procyon_decompiler
+function install_procyon_decompiler {
+    if [ ! -f "${TILDE}"/opt/procyon/lib/decompiler.jar ]; then
+	procyon_dir="${TILDE}"/opt/procyon/lib
+	test -d mkdir -p "$procyon_dir"
+	cd "$procyon_dir"
+	curl -v -k -o decompiler.jar https://bitbucket.org/mstrobel/procyon/downloads/procyon-decompiler-0.5.30.jar
     fi
 }
 
@@ -179,13 +192,13 @@ function install_mvn_version {
     mtdir=/tmp/$2.$$
     mkdir -p "$mtdir"
     cd "$mtdir"
-    wget "$1"
+    curl -O "$1"
     z=`ls *.zip`
-    cd ~/opt
+    cd "${TILDE}"/opt
     unzip -a "$mtdir/$z"
     rm -rf "$mtdir"
-    cd ~/bin
-    myln ~/opt/apache-maven-$2/bin/mvn mvn-$2
+    cd "${TILDE}"/bin
+    myln "${TILDE}"/opt/apache-maven-$2/bin/mvn mvn-$2
     chmod +x mvn*
 }
 
@@ -194,8 +207,8 @@ function install_mvn_version {
 ##   Install version 3.0.5 and 3.1.1 of maven with 3.0.5 bein the active one
 
 function install_mvn {
-    if [ ! -f ~/bin/mvn ]; then
-	mavendist=http://psg.mtu.edu/pub/apache/maven
+    if [ ! -f "${TILDE}"/bin/mvn ]; then
+	mavendist=http://archive.apache.org/dist/maven
 	zip305=$mavendist/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.zip 
 	zip311=$mavendist/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.zip 
 	install_mvn_version $zip305 3.0.5
@@ -211,24 +224,24 @@ function install_mvn {
 ##   Dowload, extract and add ant to the PATH
 
 function install_ant {
-    if [ ! -f ~/bin/ant ]; then
-	pname=apache-ant-1.9.5
+    if [ ! -f "${TILDE}"/bin/ant ]; then
+	pname=apache-ant-1.9.7
 	zname=${pname}-bin.zip
 	cd /tmp
-	wget http://apache.mirrors.tds.net/ant/binaries/$zname
-	cd ~/opt
+	curl -O http://apache.mirrors.tds.net/ant/binaries/$zname
+	cd "${TILDE}"/opt
 	unzip -q /tmp/$zname
 	rm /tmp/$zname
-	cd ~/bin
-	myln ~/opt/$pname/bin/ant ant
+	cd "${TILDE}"/bin
+	myln "${TILDE}"/opt/$pname/bin/ant ant
 	chmod +x ant
 	echo "Ant 1.9.2 installed"
     fi
 }
 
 function install_cljdb {
-    if [ ! -d ~/projects/cljdb ]; then
-	cd ~/projects
+    if [ ! -d "${TILDE}"/projects/cljdb ]; then
+	cd "${TILDE}"/projects
 	git clone https://github.com/m0smith/cljdb.git
 	DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/cljdb" 0)' 
     fi
@@ -236,16 +249,16 @@ function install_cljdb {
 
 
 function install_org_present {
-    if [ ! -d ~/projects/org-present ]; then
-	cd ~/projects
+    if [ ! -d "${TILDE}"/projects/org-present ]; then
+	cd "${TILDE}"/projects
 	git clone https://github.com/rlister/org-present.git
 	DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/org-present" 0)' 
     fi
 }
 
 function install_maven_pom_mode {
-    if [ ! -d ~/projects/maven-pom-mode ]; then
-	cd ~/projects
+    if [ ! -d "${TILDE}"/projects/maven-pom-mode ]; then
+	cd "${TILDE}"/projects
 	git clone https://github.com/m0smith/maven-pom-mode.git
 	DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/maven-pom-mode" 0)' 
     fi

@@ -2,6 +2,17 @@
   (setenv "HOME" (getenv "USERPROFILE")))
 
 
+
+(defun browse-file-directory ()
+  "Open the current file's directory however the OS would."
+  (interactive)
+  (if default-directory
+      (browse-url-of-file (expand-file-name default-directory))
+    (error "No `default-directory' to open")))
+
+(global-set-key [M-S-f6] (quote browse-file-directory))
+
+
 ;; start malabar 2.0
 
 ;; Load CEDET.
@@ -9,8 +20,10 @@
 ;; IMPORTANT: Tou must place this *before* any CEDET component (including
 ;; EIEIO) gets activated by another package (Gnus, auth-source, ...).
 
-(if (not (featurep (quote cedet-devel-load)))
-	 (load-file "~/projects/cedet/cedet-devel-load.el"))
+(if (and
+     (not (featurep (quote cedet-devel-load)))
+     (file-exists-p "~/projects/cedet/cedet-devel-load.el"))
+    (load-file "~/projects/cedet/cedet-devel-load.el"))
 
 ;; Add further minor-modes to be enabled by semantic-mode.
 ;; See doc-string of `semantic-default-submodes' for other things

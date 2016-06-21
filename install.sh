@@ -5,9 +5,14 @@
 export CYGWIN="winsymlinks:nativestrict"
 set -e
 
-cd `dirname $0`
-export DOTFILES=`pwd`
+#cd `dirname $0`
+#export DOTFILES=`pwd`
 
+#exit
+
+#if [ -z "$TILDE" ]; then
+#    TILDE="$HOME"
+#fi
 
 . $DOTFILES/setenv.sh
 . $DOTFILES/install_functions.sh
@@ -21,17 +26,19 @@ link_with_backup .gitignore
 link_with_backup .gitconfig
 link_with_backup .lein
 
-create_dir ~/bin
-create_dir ~/projects
-create_dir ~/opt
-create_dir ~/var/reg
-create_dir ~/.emacs.d/init.d
-create_dir ~/.profile.d
+create_dir "${TILDE}"/bin
+create_dir "${TILDE}"/projects
+create_dir "${TILDE}"/opt
+create_dir "${TILDE}"/var/reg
+#create_dir "${TILDE}"/.emacs.d/init.d
+create_dir "${TILDE}"/.profile.d
 
-add_to_path ~/bin
+add_to_path "${TILDE}"/bin
 
-if [ "$os" == "Cygwin" ]; then 
+if [[ "$os" =~ CYGWIN.* ]]; then 
     . $DOTFILES/install_win.sh
+elif [ "$os" == "Darwin" ]; then
+    . $DOTFILES/install_darwin.sh
 else
     os2=`cat /proc/version_signature | cut -d" " -f1`
     if [ "$os2" == "Ubuntu" ]; then 
@@ -49,7 +56,8 @@ install_dotfile_path
 install_lein
 install_mvn
 install_ant
-install_jad
+#install_jad
+#install_procyon_decompiler
 install_gvm
 install_cljdb
 install_org_present
@@ -60,7 +68,7 @@ byte_compile
 
 create_gpg_keys
 
-chmod +x ~/bin/* 
+chmod +x "${TILDE}"/bin/* 
 
-. ~/.bash_profile
+. "${TILDE}"/.bash_profile
 

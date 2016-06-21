@@ -27,14 +27,26 @@ function set_proxy {
 	echo "Both PROXY_HOST and PROXY_PORT must be set"
 	return
     fi
+
+    if [ $# -eq 0 ]; then
+	u="${USER}"
+    else
+	u="$1"
+    fi
+    
     read -s -p Password: -e p
-    local proxy="http://${USER}:$p@${PROXY_HOST}:${PROXY_PORT}"
+    local proxy="http://${u}:$p@${PROXY_HOST}:${PROXY_PORT}"
     export http_proxy="$proxy"
     export https_proxy="$proxy"
     export ftp_proxy="$proxy"
 }
 
+
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "/home/Smith/.gvm/bin/gvm-init.sh" ]] && source "/home/Smith/.gvm/bin/gvm-init.sh"
 #[[ -s "/cygdrive/c/Users/lpmsmith/.gvm/bin/gvm-init.sh" ]] && source "/cygdrive/c/Users/lpmsmith/.gvm/bin/gvm-init.sh"
 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/c08848/.sdkman"
+[[ -s "/Users/c08848/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/c08848/.sdkman/bin/sdkman-init.sh"

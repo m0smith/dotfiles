@@ -1,10 +1,24 @@
-export os=`uname -o`
+
+export os=`uname`
+SCRIPT="$0"
+
+if [ "$SCRIPT" = "-bash" ]; then
+    export DOTFILES=~/projects/dotfiles
+else
+    cd `dirname $0`
+    export DOTFILES=`pwd`
+fi
 
 
-#export DOTFILES=`dirname $0`
+
 echo DOTFILES $DOTFILES
 
-if [[ "$os" = "Cygwin" ]]; then 
+if [ -z "$TILDE" ]; then
+    TILDE="$HOME"
+fi
+
+
+if [[ "$os" =~ CYGWIN.* ]]; then 
     export LINK="${DOTFILES}/mswindows/installer/elevate.exe /c mklink"
     export LINKDIR="${DOTFILES}/mswindows/installer/elevate.exe /c mklink /d"
 else
