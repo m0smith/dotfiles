@@ -60,6 +60,7 @@ install_ant
 #install_procyon_decompiler
 install_gvm
 install_cljdb
+clone_cedet
 install_org_present
 install_maven_pom_mode
 byte_compile

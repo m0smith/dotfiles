@@ -247,6 +247,16 @@ function install_cljdb {
     fi
 }
 
+function clone_cedet {
+    if [ ! -d "${TILDE}"/projects/cedert ]; then
+	cd "${TILDE}"/projects
+	git clone http://git.code.sf.net/p/cedet/git cedet
+	## DBUS_SESSION_BUS_ADDRESS=unix:path=/tmp/foo emacs --batch --eval '(byte-recompile-directory "~/projects/cljdb" 0)' 
+    fi
+}
+
+
+
 
 function install_org_present {
     if [ ! -d "${TILDE}"/projects/org-present ]; then

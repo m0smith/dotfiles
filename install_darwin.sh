@@ -6,9 +6,6 @@ brew install brew-cask
 
 brew cask install java
 
-which gpg
-if [ $? -ne 0 ]; then
-    brew install gnupg    
-fi
+which gpg || brew install gnupg    
 
 
