@@ -7,5 +7,5 @@ brew install brew-cask
 brew cask install java
 
 which gpg || brew install gnupg    
-
+which gawk || brew install gawk
 

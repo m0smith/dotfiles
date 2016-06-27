@@ -3,12 +3,6 @@
 
 
 
-(defun browse-file-directory ()
-  "Open the current file's directory however the OS would."
-  (interactive)
-  (if default-directory
-      (browse-url-of-file (expand-file-name default-directory))
-    (error "No `default-directory' to open")))
 
 (global-set-key [M-S-f6] (quote browse-file-directory))
 
