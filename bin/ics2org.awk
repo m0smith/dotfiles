@@ -85,6 +85,10 @@ BEGIN {
     # and to your email address
     emailaddress = "matthew.smith@imail.org"
 
+    # The base level of headers
+    level = "*"
+    
+
     ### end config section
 
     # use a colon to separate the type of data line from the actual contents
@@ -114,7 +118,7 @@ BEGIN {
 
 /^[ ]/ {
     if (indescription) {
-        entry = entry gensub("\r", "", "g", gensub("^[ ]", "", "", $0));
+        entry = entry gensub("\r", "", "g", gensub("^[ ]", "", 1, $0));
     } else if (insummary) {
         summary = summary gensub("\r", "", "g", gensub("^[ ]", "", "", $0))
     } else if (inattendee) {
@@ -145,7 +149,7 @@ BEGIN {
     # if this is the first event, output the preamble from the iCal file
     if (first) {
         if(preamble) {
-            print "* COMMENT original iCal preamble"
+            print level "* COMMENT original iCal preamble"
             print gensub("\r", "", "g", icalentry)
         }
         if (preserve)
@@ -207,11 +211,11 @@ BEGIN {
 
 /^RRULE:FREQ=(DAILY|WEEKLY|MONTHLY|YEARLY)/ {
     # get the d, w, m or y value
-    freq = tolower(gensub(/.*FREQ=(.).*/, "\\1", $0))
+    freq = tolower(gensub(/.*FREQ=(.).*/, "\\1", 1, $0))
     # get the interval, and use 1 if none specified
-    interval =  $2 ~ /INTERVAL=/ ? gensub(/.*INTERVAL=([0-9]+);.*/, "\\1", $2) : 1
+    interval =  $2 ~ /INTERVAL=/ ? gensub(/.*INTERVAL=([0-9]+);.*/, "\\1", 1, $2) : 1
     # get the enddate of the rule and use "" if none specified
-    rrend = $2 ~ /UNTIL=/ ? datestring(gensub(/.*UNTIL=([0-9]{8}).*/, "\\1", $2)) : ""
+    rrend = $2 ~ /UNTIL=/ ? datestring(gensub(/.*UNTIL=([0-9]{8}).*/, "\\1", 1, $2)) : ""
     # build the repetitor vale as understood by org
     intfreq =  " +" interval freq
     # if the repetition is daily, and there is an end date, drop the repetitor
@@ -280,9 +284,9 @@ BEGIN {
 
         # translate \n sequences to actual newlines and unprotect commas (,)
         if (condense)
-            print "* <" date "> " gensub("^[ ]+", "", "", gensub("\\\\,", ",", "g", gensub("\\\\n", " ", "g", summary)))
+            print level "* <" date "> " gensub("^[ ]+", "", "", gensub("\\\\,", ",", "g", gensub("\\\\n", " ", "g", summary)))
         else
-            print "* " gensub("^[ ]+", "", "", gensub("\\\\,", ",", "g", gensub("\\\\n", " ", "g", summary))) "\n<" date ">"
+            print level "* " gensub("^[ ]+", "", 1, gensub("\\\\,", ",", "g", gensub("\\\\n", " ", "g", summary))) "\n<" date ">"
 
         print ":PROPERTIES:"
         print     ":ID:       " id
@@ -296,23 +300,23 @@ BEGIN {
         print ""
 	
 	# print attendees
-	print "** Invitees"
+	print level "** Invitees"
 	if(1 in attendee)
 	    for(a in attendee)
 		#print a;
-		print gensub("^[ ]+", "", "", gensub("\\\\,", ",", "g", gensub("\\\\n", "\n", "g", attendee[a])));
+		print gensub("^[ ]+", "", 1, gensub("\\\\,", ",", "g", gensub("\\\\n", "\n", "g", attendee[a])));
 	print ""
-	print "** Agenda"
+	print level "** Agenda"
         # translate \n sequences to actual newlines and unprotect commas (,)
         if(length(entry)>1)
-            print gensub("^[ ]+", "", "", gensub("\\\\,", ",", "g", gensub("\\\\n", "\n", "g", entry)));
+            print gensub("^[ ]+", "", 1, gensub("\\\\,", ",", "g", gensub("\\\\n", "\n", "g", entry)));
 
 
         # output original entry if requested by 'original' config option
-	print "** Notes"
+	print level "** Notes"
 	print ""
         if (original)
-            print "** COMMENT original iCal entry\n", gensub("\r", "", "g", icalentry)
+            print level "** COMMENT original iCal entry\n", gensub("\r", "", "g", icalentry)
     }
 }
 
