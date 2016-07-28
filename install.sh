@@ -25,6 +25,7 @@ link_with_backup .emacs-custom.el
 link_with_backup .gitignore
 link_with_backup .gitconfig
 link_with_backup .lein
+link_with_backup .signature
 
 create_dir "${TILDE}"/bin
 create_dir "${TILDE}"/projects
