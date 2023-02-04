@@ -1,0 +1,6 @@
+{
+  "name": "m0smith-dotfiles",
+  "dependencies": {
+    "yarn": "^1.22.19"
+  }
+}

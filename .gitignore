@@ -12,3 +12,5 @@
 repl-history
 repl-port
 self-installs
+node_modules/
+yarn.lock
