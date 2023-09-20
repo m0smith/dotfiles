@@ -7,14 +7,20 @@
         state: present
       with_items:
         - openssl
+        - pass
+        - mc
+        # ZSH
         - zsh
         - zsh-completions
-        - mc
+        # python
         - pipenv
-        - pass
+        # java
         - java
+        - maven
+        # clojure
         - clojure
         - leiningen
+        # node
         - npm
     - name: Symlink Java
       shell: "ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk"
