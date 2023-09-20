@@ -1,1 +1,1 @@
-Requried packages: git wget
+Run bin/install
