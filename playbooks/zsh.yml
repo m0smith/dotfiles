@@ -1,0 +1,31 @@
+- hosts: macos
+  name: ZSH Playbook
+  vars:
+    zshrc_path: "~/.zshrc"
+    plugins: "git history python vscode pipenv" 
+  tasks:
+    - name: Gather facts
+      setup:
+    - name: Set variable if host is macOS
+      set_fact:
+        macos_plugin: "macos"
+      when: ansible_os_family == "Darwin"
+    - name: Install oh-my-zsh
+      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      args:
+        creates: "~/.oh-my-zsh"
+    - name: Update .zshrc to include plugins
+      ansible.builtin.lineinfile:
+        path: "{{ zshrc_path }}"
+        regexp: '^plugins='
+        line: "plugins=({{ plugins }} {{macos_pligin | default('')}})"
+
+    # - name: Make zsh happy with zsh-completions
+    #   ansible.builtin.blockinfile:
+    #     path: "{{ zshrc_path }}"
+    #     block: |
+    #       if type brew &>/dev/null; then
+    #         FPATH=$(brew --prefix)/share/zsh-completions:$(brew --prefix)/share/zsh/site-functions:$FPATH
+    #         autoload -Uz compinit
+    #         compinit
+    #       fi
