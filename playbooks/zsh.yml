@@ -2,7 +2,7 @@
   name: ZSH Playbook
   vars:
     zshrc_path: "~/.zshrc"
-    plugins: "git history python vscode pipenv" 
+    plugins: "git mvn python vscode pipenv pass docker jsontools history web-search zsh-autosuggestions"
   tasks:
     - name: Gather facts
       setup:
@@ -14,18 +14,13 @@
       shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       args:
         creates: "~/.oh-my-zsh"
+    - name: Install zsh-autosuggestions
+      shell: "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+      args:
+        creates: "{{ansible_env.HOME}}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
     - name: Update .zshrc to include plugins
       ansible.builtin.lineinfile:
         path: "{{ zshrc_path }}"
-        regexp: '^plugins='
-        line: "plugins=({{ plugins }} {{macos_pligin | default('')}})"
+        regexp: "^plugins="
+        line: "plugins=({{ plugins }} {{macos_plugin | default('')}})"
 
-    # - name: Make zsh happy with zsh-completions
-    #   ansible.builtin.blockinfile:
-    #     path: "{{ zshrc_path }}"
-    #     block: |
-    #       if type brew &>/dev/null; then
-    #         FPATH=$(brew --prefix)/share/zsh-completions:$(brew --prefix)/share/zsh/site-functions:$FPATH
-    #         autoload -Uz compinit
-    #         compinit
-    #       fi

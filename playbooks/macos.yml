@@ -11,7 +11,6 @@
         - mc
         # ZSH
         - zsh
-        - zsh-completions
         # python
         - pipenv
         # java
@@ -22,6 +21,7 @@
         - leiningen
         # node
         - npm
+        - yarn
     - name: Symlink Java
       shell: "ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk"
       become: true
