@@ -1,0 +1,29 @@
+- hosts: macos
+  name: Macos Playbook
+  tasks:
+    - name: Ensures packages are present via homebrew
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - openssl
+        - pass
+        - mc
+        # ZSH
+        - zsh
+        # python
+        - pipenv
+        # java
+        - java
+        - maven
+        # clojure
+        - clojure
+        - leiningen
+        # node
+        - npm
+        - yarn
+    - name: Symlink Java
+      shell: "ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk"
+      become: true
+      args:
+        creates: "/Library/Java/JavaVirtualMachines/openjdk.jdk"
