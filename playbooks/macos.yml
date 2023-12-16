@@ -22,6 +22,7 @@
         # node
         - npm
         - yarn
+        - wget
     - name: Symlink Java
       shell: "ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk"
       become: true
