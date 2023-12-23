@@ -1,5 +1,6 @@
 - hosts: 
   - macos
+  - codespaces
   name: Git Playbook
   tasks:
     - git_config:

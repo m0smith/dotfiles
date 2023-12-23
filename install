@@ -1,0 +1,29 @@
+#!/bin/bash -x
+
+prepare_macos() {
+    if ! xcode-select -p; then
+        xcode-select --install  
+    fi
+
+    if [ ! -f "/usr/local/bin/brew" ]; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+  
+    brew install ansible
+    ansible-playbook -i inventory playbooks/playbook.yml --ask-become-pass
+    
+}
+
+prepare_codespaces() {
+    python -m pip install --upgrade pip
+    pip install ansible
+    ansible-playbook -v -i ./inventory/codespaces  playbooks/playbook.yml
+
+}
+if [ -n $CODESPACES ]; then
+    prepare_codespaces
+else
+    prepare_macos
+fi
+
+
