@@ -33,6 +33,8 @@ install_python_locally() {
     pyenv install -s "$PYTHON_VERSION"
     pyenv global "$PYTHON_VERSION"
 
+    
+
     echo "Python $PYTHON_VERSION installed successfully."
 }
 
@@ -45,8 +47,30 @@ prepare_codespaces() {
     else
         echo "Python3 is already installed."
     fi
-    python -m pip install --upgrade pip
-    pip install ansible
+
+    if ! python3 -m pip --version
+    then
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        python3 get-pip.py --user
+        export PATH="$HOME/.local/bin:$PATH"
+    fi
+
+    # Check if Ansible is installed
+    if ! command -v ansible &> /dev/null
+    then
+        echo "Ansible is not installed. Installing Ansible..."
+    
+        # Install Ansible using pip
+        pip install --user ansible
+    
+        # Add the local pip installation to the path
+        command -v ansible || export PATH="$HOME/.local/bin:$PATH"
+    
+        echo "Ansible installed successfully."
+    else
+        echo "Ansible is already installed."
+    fi
+
     ansible-playbook -v -i ./inventory/codespaces  playbooks/playbook.yml
 
 }
