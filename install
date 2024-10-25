@@ -21,7 +21,6 @@ prepare_codespaces() {
 
 }
 if [ -n $CODESPACES ]; then
-    env
     prepare_codespaces
 else
     prepare_macos
