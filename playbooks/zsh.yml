@@ -23,4 +23,23 @@
         path: "{{ zshrc_path }}"
         regexp: "^plugins="
         line: "plugins=({{ plugins }} {{macos_plugin | default('')}})"
+    - name: Ensure pyenv block is present in .zshrc
+      ansible.builtin.lineinfile:
+        path: "{{ zshrc_path }}"
+        insertafter: EOF
+        block: |
+          if command -v pyenv &> /dev/null; then
+              export PATH="$HOME/.pyenv/bin:$PATH"
+              eval "$(pyenv init --path)"
+              eval "$(pyenv init -)"
+          fi
+    - name: Ensure .local/bin block is present in .zshrc
+      ansible.builtin.lineinfile:
+        path: "{{ zshrc_path }}"
+        insertafter: EOF
+        block: |
+          if test -d $HOME/.local/bin; then
+              export PATH="$HOME/.local/bin:$PATH"
+          fi
+
 
