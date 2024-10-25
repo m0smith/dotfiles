@@ -40,7 +40,7 @@ install_python_locally() {
 
 prepare_codespaces() {
     # Check if Python is installed
-    if ! command -v python3 -c "import shutil; print('shutil is available')" &> /dev/null
+    if ! python3 -c "import shutil; print('shutil is available')" &> /dev/null
     then
         echo "Python3 is not installed."
         install_python_locally
